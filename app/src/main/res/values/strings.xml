@@ -3,7 +3,7 @@
     <string name="trivia_time_tbar">Trivia Time!</string>
     <string name="user_select">Who's Playing?</string>
 
-    <string name="question_number">Question %d:</string>
+    <string name="question_number">Question %d</string>
     <string name="trueOption">True</string>
     <string name="falseOption">False</string>
     <string name="submit_button">Submit</string>
@@ -36,5 +36,15 @@
     <string name="gameDesc">Standard Trivia! 2 lives for every five questions.</string>
     <string name="hardcore">Hardcore</string>
     <string name="hardcoreDesc">Hard mode. One life. Ten questions. Can you do it?</string>
+
+    <string name="createTrivia">Create Trivia!</string>
+    <string name="yourQuestion">Your Question</string>
+    <string name="multipleChoice">Multiple Choice</string>
+    <string name="trueFalse">True/False</string>
+    <string name="answerOption1">Answer Option 1</string>
+    <string name="answerOption2">Answer Option 2</string>
+    <string name="answerOption3">Answer Option 3</string>
+    <string name="answerOption4">Answer Option 4</string>
+    <string name="finish">Finish!</string>
 
 </resources>

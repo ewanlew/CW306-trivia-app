@@ -44,7 +44,7 @@
         app:navigationIcon="@drawable/baseline_arrow_back_24" />
 
     <TextView
-        android:id="@+id/toolbar_title3"
+        android:id="@+id/txtPlayTitle"
         android:layout_width="154dp"
         android:layout_height="43dp"
         android:layout_gravity="center"
@@ -152,11 +152,11 @@
         android:fontFamily="@font/alexandria_bold"
         android:text="@string/hardcore"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/txtCustomDescription3"
+        app:layout_constraintBottom_toTopOf="@+id/txtHardcoreDescription"
         tools:layout_editor_absoluteX="20dp" />
 
     <TextView
-        android:id="@+id/txtCustomDescription2"
+        android:id="@+id/txtStandardDescription"
         android:layout_width="wrap_content"
         android:layout_height="16dp"
         android:fontFamily="@font/alexandria"
@@ -169,7 +169,7 @@
         tools:layout_editor_absoluteX="65dp" />
 
     <TextView
-        android:id="@+id/txtCustomDescription3"
+        android:id="@+id/txtHardcoreDescription"
         android:layout_width="343dp"
         android:layout_height="16dp"
         android:layout_marginBottom="108dp"
