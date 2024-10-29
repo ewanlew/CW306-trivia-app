@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_create"
         android:layout_width="match_parent"
@@ -32,7 +31,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar_create" />
 
-    <!-- CardView for Question and Answers -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewQuestionContent"
         android:layout_width="match_parent"
@@ -52,7 +50,6 @@
             android:padding="16dp"
             android:gravity="center_horizontal">
 
-            <!-- EditText for Question -->
             <EditText
                 android:id="@+id/editTxtQuestion"
                 android:layout_width="match_parent"
@@ -64,7 +61,6 @@
                 android:text="@string/yourQuestion"
                 android:textAlignment="center" />
 
-            <!-- RadioGroup for Question Type Selection -->
             <RadioGroup
                 android:id="@+id/radioGroup"
                 android:layout_width="wrap_content"
@@ -93,7 +89,6 @@
                     android:text="@string/trueFalse" />
             </RadioGroup>
 
-            <!-- LinearLayout for Answer Options -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -190,7 +185,6 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- Question Number Text Below CardView -->
     <TextView
         android:id="@+id/txtQuestionEditing"
         android:layout_width="wrap_content"
@@ -203,7 +197,6 @@
         app:layout_constraintEnd_toStartOf="@+id/btnNext"
         app:layout_constraintStart_toEndOf="@+id/btnPrevious" />
 
-    <!-- FloatingActionButtons and Finish Button (unchanged) -->
     <Button
         android:id="@+id/btnFinish"
         style="@style/Widget.MaterialComponents.Button"
