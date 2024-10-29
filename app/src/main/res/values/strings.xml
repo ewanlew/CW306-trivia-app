@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">Trivia App</string>
+    <string name="trivia_time_tbar">Trivia Time!</string>
+    <string name="user_select">Who's Playing?</string>
+
+    <string name="question_number">Question %d:</string>
+    <string name="trueOption">True</string>
+    <string name="falseOption">False</string>
+    <string name="submit_button">Submit</string>
+
+    <string name="home">Home</string>
+    <string name="hourChar">H</string>
+    <string name="minChar">M</string>
+    <string name="secChar">S</string>
+    <string name="untilNewQs">until new questions!</string>
+    <string name="collection">Collection</string>
+    <string name="history">History</string>
+    <string name="triviaExc">Trivia!</string>
+    <string name="preferences">Preferences</string>
+
+    <string name="streakShowcase">Streak: 5 🔥</string>
+    <string name="coinsShowcase">Coins: 200 🪙</string>
+    <string name="playMorePlease">Play Trivia to increase your Streak 🔥 and earn Coins 🪙!</string>
+
+    <string name="gamesPlayed">Games Played</string>
+    <string name="winRate">Win Rate</string>
+
 </resources>

@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:title="Aaaa"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,7 +22,7 @@
         android:layout_height="43dp"
         android:layout_gravity="center"
         android:fontFamily="@font/alexandria_bold"
-        android:text="Trivia Time!"
+        android:text="@string/trivia_time_tbar"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="24sp"
@@ -34,7 +33,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/txtQuestion"
         android:layout_width="284dp"
         android:layout_height="108dp"
         android:layout_marginTop="16dp"
@@ -46,30 +45,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/txtQuestionNo" />
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="164dp"
-        android:layout_height="43dp"
+        android:id="@+id/txtQuestionNo"
+        android:layout_width="184dp"
+        android:layout_height="41dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/alexandria_bold"
-        android:text="Question 1:"
+        android:text="@string/question_number"
         android:textAlignment="center"
         android:textSize="24sp"
         android:typeface="monospace"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/linLayLives" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button"
+        android:id="@+id/btnSubmit"
         android:layout_width="134dp"
         android:layout_height="49dp"
         android:layout_marginBottom="60dp"
         android:backgroundTint="#C0B2E4"
-        android:text="Submit"
+        android:text="@string/submit_button"
         android:textColorLink="#7CB342"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -79,7 +78,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/linLayLives"
         android:layout_width="411dp"
         android:layout_height="69dp"
         android:layout_marginTop="28dp"
@@ -92,6 +91,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar_title">
 
         <ImageView
+            android:id="@+id/imgLife1"
             android:layout_width="50dp"
             android:layout_height="50dp"
             app:srcCompat="@drawable/favorite_40dp_ff7070_fill1_wght400_grad0_opsz40" />
@@ -102,22 +102,24 @@
 
         <!-- Second Heart Icon -->
         <ImageView
+            android:id="@+id/imgLife2"
             android:layout_width="50dp"
             android:layout_height="50dp"
             app:srcCompat="@drawable/favorite_40dp_ff7070_fill1_wght400_grad0_opsz40" />
     </LinearLayout>
 
     <RadioGroup
+        android:id="@+id/linLayAnswers"
         android:layout_width="161dp"
         android:layout_height="209dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/btnSubmit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/txtQuestion"
         app:layout_constraintVertical_bias="0.422">
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/rdoAns1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/alexandria"
@@ -125,7 +127,7 @@
             android:textAlignment="center" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/rdoAns2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/alexandria"
@@ -133,7 +135,7 @@
             android:textAlignment="center" />
 
         <RadioButton
-            android:id="@+id/radioButton5"
+            android:id="@+id/rdoAns3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/alexandria"
@@ -141,7 +143,7 @@
             android:textAlignment="center" />
 
         <RadioButton
-            android:id="@+id/radioButton7"
+            android:id="@+id/rdoAns4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/alexandria"

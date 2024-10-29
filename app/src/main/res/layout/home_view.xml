@@ -21,7 +21,7 @@
         android:layout_height="43dp"
         android:layout_gravity="center"
         android:fontFamily="@font/alexandria_bold"
-        android:text="Trivia Time!"
+        android:text="@string/home"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="24sp"
@@ -39,7 +39,8 @@
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="0dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/txtStreak"
@@ -48,7 +49,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/alexandria"
             android:gravity="center"
-            android:text="Streak: 5 🔥"
+            android:text="@string/streakShowcase"
             android:textAlignment="center"
             android:textSize="16sp" />
 
@@ -58,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/alexandria"
-            android:text="Coins: 200🪙"
+            android:text="@string/coinsShowcase"
             android:textAlignment="center"
             android:textSize="16sp" />
 
@@ -66,32 +67,34 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/txtPlayMorePlease"
         android:layout_width="343dp"
         android:layout_height="16dp"
         android:fontFamily="@font/alexandria"
-        android:text="Play Trivia to increase your Streak 🔥 and earn Coins 🪙!"
+        android:text="@string/playMorePlease"
         android:textAlignment="center"
         android:textColor="#878787"
         android:textSize="12sp"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        tools:layout_editor_absoluteX="36dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/txtTimeTilNewQuestions"
         android:layout_width="215dp"
         android:layout_height="25dp"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/alexandria"
-        android:text="until new questions!"
+        android:text="@string/untilNewQs"
         android:textAlignment="center"
         android:textColor="#878787"
         android:textSize="12sp"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-        tools:layout_editor_absoluteX="98dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linLayTimeUntilNewQuestions" />
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
+        android:id="@+id/linLayTimeUntilNewQuestions"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="24dp"
@@ -105,7 +108,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/txtNewQuestionHourVal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -115,17 +118,17 @@
             android:textSize="36sp" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/txtNewQuestionHour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="sans-serif-black"
-            android:text="H"
+            android:text="@string/hourChar"
             android:textAlignment="viewStart"
             android:textSize="36sp" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/txtNewQuestionMinVal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -135,17 +138,17 @@
             android:textSize="36sp" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/txtNewQuestionMin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="sans-serif-black"
-            android:text="M"
+            android:text="@string/minChar"
             android:textAlignment="viewStart"
             android:textSize="36sp" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/txtNewQuestionSecVal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -155,12 +158,12 @@
             android:textSize="36sp" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/txtNewQuestionSec"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="sans-serif-black"
-            android:text="S"
+            android:text="@string/secChar"
             android:textAlignment="viewStart"
             android:textSize="36sp" />
 
@@ -170,33 +173,32 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="195dp"
-        android:layout_height="280dp"
+        android:id="@+id/linLayButtonHolder"
+        android:layout_width="192dp"
+        android:layout_height="291dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.52">
+        app:layout_constraintTop_toBottomOf="@+id/txtTimeTilNewQuestions">
 
         <Button
-            android:id="@+id/btnStart3"
+            android:id="@+id/btnCollection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#7DAB7B"
             android:fontFamily="@font/alexandria_bold"
-            android:text="Collection"
+            android:text="@string/collection"
             android:textSize="16sp" />
 
         <Button
-            android:id="@+id/btnStart2"
+            android:id="@+id/btnHistory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#7DAB7B"
             android:fontFamily="@font/alexandria_bold"
-            android:text="History"
+            android:text="@string/history"
             android:textSize="16sp" />
 
         <Space
@@ -209,7 +211,7 @@
             android:layout_height="79dp"
             android:backgroundTint="#489743"
             android:fontFamily="@font/alexandria_bold"
-            android:text="Trivia!"
+            android:text="@string/triviaExc"
             android:textSize="28sp" />
 
         <Space
@@ -217,12 +219,12 @@
             android:layout_height="20sp" />
 
         <Button
-            android:id="@+id/btnStart4"
+            android:id="@+id/btnPreferences"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#877BAB"
             android:fontFamily="@font/alexandria_bold"
-            android:text="Preferences"
+            android:text="@string/preferences"
             android:textSize="16sp" />
 
 

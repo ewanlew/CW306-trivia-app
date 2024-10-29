@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/alexandria_bold"
-            android:text="Trivia Time!"
+            android:text="@string/trivia_time_tbar"
             android:textColor="@android:color/white"
             android:textSize="24sp"
             tools:layout_editor_absoluteX="134dp"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:fontFamily="@font/alexandria_bold"
-        android:text="Who's Playing?"
+        android:text="@string/user_select"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +44,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/userList"
         android:layout_width="275dp"
         android:layout_height="405dp"
         android:layout_marginTop="28dp"
@@ -62,7 +62,7 @@
         android:id="@+id/btnAddUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="52dp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,9 +73,10 @@
     <LinearLayout
         android:layout_width="273dp"
         android:layout_height="44dp"
+        android:backgroundTint="#E8DBFD"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerView"
-        app:layout_constraintTop_toTopOf="@+id/recyclerView">
+        app:layout_constraintEnd_toEndOf="@+id/userList"
+        app:layout_constraintTop_toTopOf="@+id/userList">
 
         <ImageView
             android:id="@+id/imageView3"
@@ -85,13 +86,14 @@
 
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="225dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:backgroundTint="#E8DBFD"
             android:fontFamily="@font/alexandria"
-            android:gravity="center|left"
+            android:gravity="center|start"
             android:paddingHorizontal="20dp"
-            android:text="John" />
+            android:text="John D. Trivia 🏴‍☠️" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
