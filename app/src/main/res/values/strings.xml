@@ -25,4 +25,16 @@
     <string name="gamesPlayed">Games Played</string>
     <string name="winRate">Win Rate</string>
 
+    <string name="playTriviaTitle">Play Trivia!</string>
+    <string name="howPlayToday">How would you like to play today?</string>
+    <string name="createCustom">Create Custom</string>
+    <string name="playCustom">Play Custom</string>
+    <string name="customDesc">Create and play user-created Trivia!</string>
+    <string name="easy">Easy</string>
+    <string name="normal">Normal</string>
+    <string name="hard">Hard</string>
+    <string name="gameDesc">Standard Trivia! 2 lives for every five questions.</string>
+    <string name="hardcore">Hardcore</string>
+    <string name="hardcoreDesc">Hard mode. One life. Ten questions. Can you do it?</string>
+
 </resources>
