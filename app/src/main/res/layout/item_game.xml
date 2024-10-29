@@ -14,20 +14,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Game Result (e.g., Win/Loss) -->
         <TextView
-            android:id="@+id/tvResult"
-            android:layout_width="0dp"
+            android:id="@+id/tvGrade"
+            android:layout_width="12dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.2"
             android:fontFamily="@font/alexandria_bold"
             android:gravity="center_vertical"
-            android:text="Win"
+            android:text="S"
             android:textColor="@android:color/holo_green_dark"
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <!-- Date and Time -->
+        <TextView
+            android:id="@+id/tvResult"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:fontFamily="@font/alexandria_bold"
+            android:gravity="center_vertical"
+            android:text="10 / 10"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/tvDateTime"
             android:layout_width="0dp"
@@ -35,23 +45,21 @@
             android:layout_weight="1"
             android:fontFamily="@font/alexandria"
             android:gravity="center_vertical"
-            android:text="10/28/2024, 15:00"
+            android:text="10/28/2024"
             android:textColor="@android:color/black"
             android:textSize="14sp" />
 
-        <!-- Difficulty -->
         <TextView
             android:id="@+id/tvDifficulty"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.7"
             android:fontFamily="@font/alexandria"
             android:gravity="center_vertical"
-            android:text="Medium"
+            android:text="Normal"
             android:textColor="@android:color/darker_gray"
             android:textSize="14sp" />
 
-        <!-- Category -->
         <TextView
             android:id="@+id/tvCategory"
             android:layout_width="0dp"
@@ -59,7 +67,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/alexandria"
             android:gravity="center_vertical"
-            android:text="General Knowledge"
+            android:text="Science"
             android:textColor="@android:color/darker_gray"
             android:textSize="14sp" />
 

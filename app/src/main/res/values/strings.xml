@@ -2,6 +2,7 @@
     <string name="app_name">Trivia App</string>
     <string name="trivia_time_tbar">Trivia Time!</string>
     <string name="user_select">Who's Playing?</string>
+    <string name="add_user">Add User</string>
 
     <string name="question_number">Question %d</string>
     <string name="trueOption">True</string>
@@ -28,7 +29,7 @@
     <string name="playTriviaTitle">Play Trivia!</string>
     <string name="howPlayToday">How would you like to play today?</string>
     <string name="createCustom">Create Custom</string>
-    <string name="playCustom">Play Custom</string>
+    <string name="playCustom">Import Custom</string>
     <string name="customDesc">Create and play user-created Trivia!</string>
     <string name="easy">Easy</string>
     <string name="normal">Normal</string>

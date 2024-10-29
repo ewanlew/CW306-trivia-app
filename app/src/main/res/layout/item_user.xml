@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:backgroundTint="#E8DBFD"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            tools:srcCompat="@tools:sample/avatars"
+            android:layout_width="45dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#E8DBFD"
+            android:fontFamily="@font/alexandria"
+            android:gravity="center|start"
+            android:paddingHorizontal="20dp"
+            android:text="John D. Trivia" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
