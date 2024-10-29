@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,11 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:title="Aaaa"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/baseline_arrow_back_24"
+        app:navigationIcon="@drawable/baseline_arrow_back_24" />
 
     <TextView
         android:id="@+id/toolbar_title"
@@ -30,6 +30,203 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="414dp"
+        android:layout_height="31dp"
+        android:layout_marginBottom="56dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="0dp">
+
+        <TextView
+            android:id="@+id/txtStreak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/alexandria"
+            android:gravity="center"
+            android:text="Streak: 5 🔥"
+            android:textAlignment="center"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txtCoins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/alexandria"
+            android:text="Coins: 200🪙"
+            android:textAlignment="center"
+            android:textSize="16sp" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="343dp"
+        android:layout_height="16dp"
+        android:fontFamily="@font/alexandria"
+        android:text="Play Trivia to increase your Streak 🔥 and earn Coins 🪙!"
+        android:textAlignment="center"
+        android:textColor="#878787"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        tools:layout_editor_absoluteX="36dp" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="215dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/alexandria"
+        android:text="until new questions!"
+        android:textAlignment="center"
+        android:textColor="#878787"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        tools:layout_editor_absoluteX="98dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center|clip_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        tools:layout_editor_absoluteX="0dp">
+
+        <Space
+            android:layout_width="30sp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
+            android:text="04"
+            android:textAlignment="textEnd"
+            android:textSize="36sp" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-black"
+            android:text="H"
+            android:textAlignment="viewStart"
+            android:textSize="36sp" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
+            android:text="25"
+            android:textAlignment="textEnd"
+            android:textSize="36sp" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-black"
+            android:text="M"
+            android:textAlignment="viewStart"
+            android:textSize="36sp" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
+            android:text="16"
+            android:textAlignment="textEnd"
+            android:textSize="36sp" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-black"
+            android:text="S"
+            android:textAlignment="viewStart"
+            android:textSize="36sp" />
+
+        <Space
+            android:layout_width="30sp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="195dp"
+        android:layout_height="280dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:layout_constraintVertical_bias="0.52">
+
+        <Button
+            android:id="@+id/btnStart3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#7DAB7B"
+            android:fontFamily="@font/alexandria_bold"
+            android:text="Collection"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnStart2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#7DAB7B"
+            android:fontFamily="@font/alexandria_bold"
+            android:text="History"
+            android:textSize="16sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20sp" />
+
+        <Button
+            android:id="@+id/btnStart"
+            android:layout_width="match_parent"
+            android:layout_height="79dp"
+            android:backgroundTint="#489743"
+            android:fontFamily="@font/alexandria_bold"
+            android:text="Trivia!"
+            android:textSize="28sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20sp" />
+
+        <Button
+            android:id="@+id/btnStart4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#877BAB"
+            android:fontFamily="@font/alexandria_bold"
+            android:text="Preferences"
+            android:textSize="16sp" />
+
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
