@@ -6,7 +6,7 @@
     <string name="question_number">Question %d</string>
     <string name="trueOption">True</string>
     <string name="falseOption">False</string>
-    <string name="submit_button">Submit</string>
+    <string name="submit_button">Confirm</string>
 
     <string name="home">Home</string>
     <string name="hourChar">H</string>

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -14,143 +13,163 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/baseline_arrow_back_24"/>
+        app:navigationIcon="@drawable/baseline_arrow_back_24" />
 
     <TextView
         android:id="@+id/toolbar_title"
-        android:layout_width="154dp"
-        android:layout_height="43dp"
-        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="9dp"
         android:fontFamily="@font/alexandria_bold"
+        android:gravity="center"
         android:text="@string/trivia_time_tbar"
         android:textAlignment="center"
-        android:textColor="@android:color/white"
+        android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="1.0" />
 
-    <TextView
-        android:id="@+id/txtQuestion"
-        android:layout_width="284dp"
-        android:layout_height="108dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/alexandria"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="Which city held the 2002 Olympic Games?"
-        android:textAlignment="center"
-        android:textSize="18sp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewLives"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtQuestionNo" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-    <TextView
-        android:id="@+id/txtQuestionNo"
-        android:layout_width="184dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/alexandria_bold"
-        android:text="@string/question_number"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:typeface="monospace"
+        <LinearLayout
+            android:id="@+id/linLayLives"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/imgLife1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/favorite_40dp_ff7070_fill1_wght400_grad0_opsz40" />
+
+            <Space
+                android:layout_width="80sp"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/imgLife2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/favorite_40dp_ff7070_fill1_wght400_grad0_opsz40" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="#FDF9FC"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linLayLives" />
+        app:layout_constraintTop_toBottomOf="@+id/cardViewLives">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/txtQuestionNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/alexandria_bold"
+                android:text="@string/question_number"
+                android:textAlignment="center"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/txtQuestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/alexandria"
+                android:text="Which city held the 2002 Olympic Games?"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/linLayAnswers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                android:paddingVertical="20dp">
+
+                <RadioButton
+                    android:id="@+id/rdoAns1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alexandria"
+                    android:text="Tokyo"
+                    android:textAlignment="center" />
+
+                <RadioButton
+                    android:id="@+id/rdoAns2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alexandria"
+                    android:text="Beijing"
+                    android:textAlignment="center" />
+
+                <RadioButton
+                    android:id="@+id/rdoAns3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alexandria"
+                    android:text="Sydney"
+                    android:textAlignment="center" />
+
+                <RadioButton
+                    android:id="@+id/rdoAns4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alexandria"
+                    android:text="London"
+                    android:textAlignment="center" />
+            </RadioGroup>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnSubmit"
-        android:layout_width="134dp"
-        android:layout_height="49dp"
-        android:layout_marginBottom="60dp"
-        android:backgroundTint="#C0B2E4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:backgroundTint="#664FA3"
         android:text="@string/submit_button"
-        android:textColorLink="#7CB342"
+        android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/linLayLives"
-        android:layout_width="411dp"
-        android:layout_height="69dp"
-        android:layout_marginTop="28dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:orientation="horizontal"
-        app:flow_horizontalAlign="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_title">
-
-        <ImageView
-            android:id="@+id/imgLife1"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:srcCompat="@drawable/favorite_40dp_ff7070_fill1_wght400_grad0_opsz40" />
-        <!-- Space Between Hearts -->
-        <Space
-            android:layout_width="80sp"
-            android:layout_height="wrap_content" />
-
-        <!-- Second Heart Icon -->
-        <ImageView
-            android:id="@+id/imgLife2"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:srcCompat="@drawable/favorite_40dp_ff7070_fill1_wght400_grad0_opsz40" />
-    </LinearLayout>
-
-    <RadioGroup
-        android:id="@+id/linLayAnswers"
-        android:layout_width="161dp"
-        android:layout_height="209dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnSubmit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtQuestion"
-        app:layout_constraintVertical_bias="0.422">
-
-        <RadioButton
-            android:id="@+id/rdoAns1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/alexandria"
-            android:text="Tokyo"
-            android:textAlignment="center" />
-
-        <RadioButton
-            android:id="@+id/rdoAns2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/alexandria"
-            android:text="Beijing"
-            android:textAlignment="center" />
-
-        <RadioButton
-            android:id="@+id/rdoAns3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/alexandria"
-            android:text="Sydney"
-            android:textAlignment="center" />
-
-        <RadioButton
-            android:id="@+id/rdoAns4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/alexandria"
-            android:text="London"
-            android:textAlignment="center" />
-
-    </RadioGroup>
-
+        app:layout_constraintTop_toBottomOf="@+id/cardViewQuestion"
+        app:layout_constraintVertical_bias="0.425" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
