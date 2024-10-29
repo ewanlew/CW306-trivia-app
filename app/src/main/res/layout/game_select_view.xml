@@ -55,7 +55,7 @@
 
             <!-- "Play More" TextView -->
             <TextView
-                android:id="@+id/txtPlayMorePlease2"
+                android:id="@+id/txtPlayMorePlease"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
