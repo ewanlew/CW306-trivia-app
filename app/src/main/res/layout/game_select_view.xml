@@ -171,7 +171,8 @@
         android:text="@string/hardcore"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/txtHardcoreDescription"
-        tools:layout_editor_absoluteX="20dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/txtHardcoreDescription"
@@ -194,7 +195,8 @@
         android:layout_marginBottom="4dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/btnHardcore"
-        tools:layout_editor_absoluteX="0dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/btnEasy"
