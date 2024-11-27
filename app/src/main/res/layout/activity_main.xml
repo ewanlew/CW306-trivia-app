@@ -21,14 +21,14 @@
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:fontFamily="@font/alexandria_bold"
             android:text="@string/trivia_time_tbar"
             android:textColor="@android:color/white"
             android:textSize="24sp"
-            tools:layout_editor_absoluteX="134dp"
-            tools:layout_editor_absoluteY="18dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
     </androidx.appcompat.widget.Toolbar>
+
 
     <TextView
         android:id="@+id/txtSelectUser"
@@ -54,9 +54,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtSelectUser"
-        app:layout_constraintVertical_bias="0.17"
-        tools:itemCount="2"
-        tools:listitem="@layout/item_user">
+        app:layout_constraintVertical_bias="0.17">
 
 
     </androidx.recyclerview.widget.RecyclerView>

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Trivia App</string>
     <string name="trivia_time_tbar">Trivia Time!</string>
-    <string name="user_select">Who's Playing?</string>
+    <string name="user_select">Who\'s Playing?</string>
     <string name="add_user">Add User</string>
 
     <string name="question_number">Question %d</string>
@@ -39,6 +39,7 @@
     <string name="hardcoreDesc">Hard mode. One life. Ten questions. Can you do it?</string>
 
     <string name="createTrivia">Create Trivia!</string>
+    <string name="yourTriviaName">Name your Trivia!</string>
     <string name="yourQuestion">Your Question</string>
     <string name="multipleChoice">Multiple Choice</string>
     <string name="trueFalse">True/False</string>
