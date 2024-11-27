@@ -49,4 +49,8 @@
     <string name="answerOption4">Answer Option 4</string>
     <string name="finish">Finish!</string>
 
+<!--    Dialog Boxes-->
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="save">Save</string>
 </resources>
