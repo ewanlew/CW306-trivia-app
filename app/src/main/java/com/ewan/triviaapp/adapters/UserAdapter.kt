@@ -1,5 +1,6 @@
 package com.ewan.triviaapp.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,9 +29,21 @@ class UserAdapter(
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val user = userList[position]
         holder.usernameText.text = user.username
+        Log.d("UserAdapter", "Binding user: ${user.username} with Avatar Res ID: ${user.avatarResId}")
+
+        // Set the image resource and log it
         holder.avatarImage.setImageResource(user.avatarResId)
+        holder.avatarImage.post {
+            Log.d(
+                "UserAdapter",
+                "ImageView dimensions (after bind) - Width: ${holder.avatarImage.width}, Height: ${holder.avatarImage.height}"
+            )
+        }
+
         holder.view.setOnClickListener { onUserSelected(user) }
     }
+
+
 
     override fun getItemCount(): Int = userList.size
 }

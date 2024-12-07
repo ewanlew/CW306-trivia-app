@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -86,6 +87,8 @@ class MainActivity : AppCompatActivity() {
         editor.putString("$username:password", password)
         editor.putInt("$username:avatar", avatarResId)
         editor.apply()
+        Log.d("SaveUser", "Saving user: $username, Password: $password, Avatar Res ID: $avatarResId")
+
     }
 
     private fun loadUsers() {
@@ -94,11 +97,19 @@ class MainActivity : AppCompatActivity() {
             if (entry.key.contains(":password")) {
                 val username = entry.key.split(":")[0]
                 val avatarResId = sharedPref.getInt("$username:avatar", DEFAULT_AVATAR_RES_ID)
+                Log.d("MainActivity", "Loaded user: $username with Avatar Res ID: $avatarResId")
                 userList.add(User(username, avatarResId))
             }
         }
         userAdapter.notifyDataSetChanged()
     }
+
+    private fun clearSharedPreferences() {
+        val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+        sharedPref.edit().clear().apply()
+        Log.d("SharedPreferences", "Cleared all user data")
+    }
+
 
     private fun handleUserSelection(user: User) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_password_prompt, null)
@@ -113,6 +124,10 @@ class MainActivity : AppCompatActivity() {
             val enteredPassword = passwordInput.text.toString().trim()
 
             val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+            for ((key, value) in sharedPref.all) {
+                Log.d("SharedPreferences", "Key: $key, Value: $value")
+            }
+
             val storedPassword = sharedPref.getString("${user.username}:password", "")
 
             if (enteredPassword == storedPassword) {
