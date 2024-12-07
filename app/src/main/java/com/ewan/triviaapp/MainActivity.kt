@@ -97,7 +97,37 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleUserSelection(user: User) {
-        Log.i("Selected User", "Logged in as: ${user.username}")
+        // Create a dialog to prompt for the password
+        val dialogView = layoutInflater.inflate(R.layout.dialog_password_prompt, null)
+        val passwordInput = dialogView.findViewById<EditText>(R.id.etPasswordPrompt)
+        val submitButton = dialogView.findViewById<Button>(R.id.btnSubmitPassword)
+
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .create()
+
+        submitButton.setOnClickListener {
+            val enteredPassword = passwordInput.text.toString().trim()
+
+            // Retrieve the stored password for the selected user
+            val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+            val storedPassword = sharedPref.getString("${user.username}:password", "")
+
+            if (enteredPassword == storedPassword) {
+                // Password is correct, navigate to HomeActivity
+                dialog.dismiss()
+                navigateToHome(user)
+            } else {
+                // Password is incorrect, show an error message
+                passwordInput.error = "Incorrect password"
+            }
+        }
+
+        dialog.show()
+    }
+
+
+    private fun navigateToHome(user: User){
         val intent = Intent(this, HomeActivity::class.java)
         intent.putExtra("username", user.username)
         intent.putExtra("avaterResId", user.avatarResId)
