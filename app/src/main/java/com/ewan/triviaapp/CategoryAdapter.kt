@@ -1,5 +1,6 @@
 package com.ewan.triviaapp
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,7 @@ class CategoryAdapter(
     private val onCategorySelected: (TriviaCategory) -> Unit
 ) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
-    private var selectedPosition: Int = -1 // Track the selected position
+    private var selectedPosition: Int = -1
 
     class CategoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val radioButton: RadioButton = view.findViewById(R.id.rbCategory)
@@ -27,7 +28,7 @@ class CategoryAdapter(
         return CategoryViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CategoryViewHolder, @SuppressLint("RecyclerView") position: Int) {
         val category = categories[position]
         holder.radioButton.text = category.name
         holder.emojiText.text = category.emoji
@@ -37,9 +38,9 @@ class CategoryAdapter(
             if (selectedPosition != position) {
                 val previousPosition = selectedPosition
                 selectedPosition = position
-                notifyItemChanged(previousPosition) // Update previous selection
-                notifyItemChanged(selectedPosition) // Update current selection
-                onCategorySelected(category) // Notify selection change
+                notifyItemChanged(previousPosition)
+                notifyItemChanged(selectedPosition)
+                onCategorySelected(category)
             }
         }
     }

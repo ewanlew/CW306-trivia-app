@@ -127,7 +127,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/alexandria"
                     android:text="Tokyo"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:visibility="visible" />
 
                 <RadioButton
                     android:id="@+id/rdoAns2"
