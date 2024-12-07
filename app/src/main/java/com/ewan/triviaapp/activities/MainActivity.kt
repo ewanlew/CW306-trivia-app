@@ -1,6 +1,6 @@
-package com.ewan.triviaapp
+package com.ewan.triviaapp.activities
 
-import UserAdapter
+import com.ewan.triviaapp.adapters.UserAdapter
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -14,6 +14,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ewan.triviaapp.R
+import com.ewan.triviaapp.models.User
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,7 +45,9 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val addUserButton = findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.btnAddUser)
+        val addUserButton = findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(
+            R.id.btnAddUser
+        )
         addUserButton.setOnClickListener {
             showAddUserDialog()
         }

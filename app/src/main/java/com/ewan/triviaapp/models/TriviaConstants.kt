@@ -1,4 +1,4 @@
-package com.ewan.triviaapp
+package com.ewan.triviaapp.models
 
 object TriviaConstants {
     val categoryIdMap = mapOf(

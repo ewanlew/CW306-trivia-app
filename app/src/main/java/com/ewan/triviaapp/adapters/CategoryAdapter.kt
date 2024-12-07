@@ -1,4 +1,4 @@
-package com.ewan.triviaapp
+package com.ewan.triviaapp.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.ewan.triviaapp.R
+import com.ewan.triviaapp.models.TriviaCategory
 
 
 class CategoryAdapter(

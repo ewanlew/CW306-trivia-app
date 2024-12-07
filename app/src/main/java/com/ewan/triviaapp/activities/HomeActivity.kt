@@ -1,9 +1,10 @@
-package com.ewan.triviaapp
+package com.ewan.triviaapp.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.ewan.triviaapp.R
 
 class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

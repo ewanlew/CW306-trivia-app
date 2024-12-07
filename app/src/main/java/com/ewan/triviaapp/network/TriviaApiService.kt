@@ -1,4 +1,5 @@
-import com.ewan.triviaapp.TriviaApi
+package com.ewan.triviaapp.network
+
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

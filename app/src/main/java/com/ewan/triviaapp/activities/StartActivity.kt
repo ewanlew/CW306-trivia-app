@@ -1,6 +1,6 @@
-package com.ewan.triviaapp
+package com.ewan.triviaapp.activities
 
-import TriviaApiService
+import com.ewan.triviaapp.network.TriviaApiService
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -10,7 +10,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ewan.triviaapp.TriviaConstants.categoryIdMap
+import com.ewan.triviaapp.adapters.CategoryAdapter
+import com.ewan.triviaapp.R
+import com.ewan.triviaapp.models.TriviaCategory
+import com.ewan.triviaapp.models.TriviaConstants
+import com.ewan.triviaapp.models.TriviaResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

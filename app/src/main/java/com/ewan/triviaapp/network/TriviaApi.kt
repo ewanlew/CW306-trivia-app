@@ -1,5 +1,6 @@
-package com.ewan.triviaapp
+package com.ewan.triviaapp.network
 
+import com.ewan.triviaapp.models.TriviaResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
