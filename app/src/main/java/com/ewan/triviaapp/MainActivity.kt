@@ -2,6 +2,7 @@ package com.ewan.triviaapp
 
 import UserAdapter
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -97,5 +98,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleUserSelection(user: User) {
         Log.i("Selected User", "Logged in as: ${user.username}")
+        val intent = Intent(this, HomeActivity::class.java)
+        intent.putExtra("username", user.username)
+        intent.putExtra("avaterResId", user.avatarResId)
+        startActivity(intent)
     }
 }
