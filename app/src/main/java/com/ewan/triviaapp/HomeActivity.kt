@@ -2,6 +2,7 @@ package com.ewan.triviaapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 
 class HomeActivity : AppCompatActivity() {
@@ -12,10 +13,13 @@ class HomeActivity : AppCompatActivity() {
         val username = intent.getStringExtra("username")
         val avatarResId = intent.getIntExtra("AvatarResId", R.drawable.avi_default)
 
+        val startButton = findViewById<Button>(R.id.btnStart)
+        startButton.setOnClickListener {
+            val intent = Intent(this, StartActivity::class.java)
+            intent.putExtra("username", username)
+            intent.putExtra("avatarResId", avatarResId)
+            startActivity(intent)
     }
 
-    override fun startActivity(intent: Intent){
-        super.startActivity(intent)
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 }
