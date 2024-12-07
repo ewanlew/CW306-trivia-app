@@ -1,0 +1,68 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Question Type"
+            android:textSize="18sp"
+            android:layout_marginBottom="8dp" />
+
+        <RadioGroup
+            android:id="@+id/rgQuestionType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/rbTrueFalse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="True/False" />
+            <RadioButton
+                android:id="@+id/rbMultipleChoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Multiple Choice" />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Number of Questions"
+            android:textSize="18sp"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/etNumberOfQuestions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="Enter number of questions" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Categories"
+            android:textSize="18sp"
+            android:layout_marginTop="16dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCategories"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scrollbars="vertical" />
+
+        <Button
+            android:id="@+id/btnConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Confirm"
+            android:layout_marginTop="16dp" />
+    </LinearLayout>
+</ScrollView>
