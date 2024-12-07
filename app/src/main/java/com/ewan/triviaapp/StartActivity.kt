@@ -1,5 +1,6 @@
 package com.ewan.triviaapp
 
+import TriviaApiService
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -9,8 +10,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ewan.triviaapp.TriviaConstants.categoryIdMap
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class StartActivity : AppCompatActivity() {
+
+    private var selectedCategory: TriviaCategory? = null // Declare selectedCategory as a class-level variable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,10 +27,10 @@ class StartActivity : AppCompatActivity() {
         val avatarResId = intent.getIntExtra("avatarResId", R.drawable.avi_default)
 
         val startButton = findViewById<Button>(R.id.btnEasy)
-        startButton.setOnClickListener(){
+        startButton.setOnClickListener {
             showQuizOptionsDialog()
         }
-        }
+    }
 
     private fun showQuizOptionsDialog() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_quiz_options, null)
@@ -59,33 +66,61 @@ class StartActivity : AppCompatActivity() {
             TriviaCategory("Cartoon & Animations", "\uD83C\uDF83")
         )
 
-        var selectedCategory: TriviaCategory? = null
-
+        // Set up the adapter and RecyclerView
         val adapter = CategoryAdapter(categories) { category ->
+            selectedCategory = category // Update selectedCategory when a category is selected
+            Log.d("CategorySelection", "Selected category: ${category.name}")
         }
         rvCategories.layoutManager = LinearLayoutManager(this)
         rvCategories.adapter = adapter
 
+        // Set up the dialog
         val dialog = AlertDialog.Builder(this)
             .setView(dialogView)
             .create()
 
         btnConfirm.setOnClickListener {
             val selectedQuestionType = when (rgQuestionType.checkedRadioButtonId) {
-                R.id.rbTrueFalse -> "True/False"
-                R.id.rbMultipleChoice -> "Multiple Choice"
-                else -> "Unknown"
+                R.id.rbTrueFalse -> "boolean"
+                R.id.rbMultipleChoice -> "multiple"
+                else -> "multiple"
             }
-            val numberOfQuestions = etNumberOfQuestions.text.toString().toIntOrNull() ?: 0
+            val numberOfQuestions = etNumberOfQuestions.text.toString().toIntOrNull() ?: 10
 
-            Log.d("QuizOptions", "Type: $selectedQuestionType")
-            Log.d("QuizOptions", "Questions: $numberOfQuestions")
-            Log.d("QuizOptions", "Category: ${selectedCategory?.name ?: "None"}")
+            // Check if a category was selected
+            if (selectedCategory == null) {
+                Log.e("QuizOptions", "No category selected")
+                return@setOnClickListener
+            }
 
+            // Get the category ID
+            val categoryId = TriviaConstants.categoryIdMap[selectedCategory!!.name] ?: 9 // Default to General Knowledge
+
+            // Make the API call
+            fetchQuestions(numberOfQuestions, categoryId, "medium", selectedQuestionType)
             dialog.dismiss()
         }
 
         dialog.show()
     }
 
+    private fun fetchQuestions(amount: Int, category: Int, difficulty: String, type: String) {
+        TriviaApiService.api.getQuestions(amount, category, difficulty, type)
+            .enqueue(object : Callback<TriviaResponse> {
+                override fun onResponse(call: Call<TriviaResponse>, response: Response<TriviaResponse>) {
+                    if (response.isSuccessful) {
+                        val questions = response.body()?.results ?: emptyList()
+                        Log.d("TriviaAPI", "Questions Retrieved: $questions")
+
+                        // Navigate to quiz screen with questions (implement navigation logic)
+                    } else {
+                        Log.e("TriviaAPI", "Error: ${response.code()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<TriviaResponse>, t: Throwable) {
+                    Log.e("TriviaAPI", "Failed to fetch questions: ${t.message}")
+                }
+            })
+    }
 }

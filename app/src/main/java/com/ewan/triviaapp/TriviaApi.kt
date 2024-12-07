@@ -1,5 +1,6 @@
 package com.ewan.triviaapp
 
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -10,5 +11,5 @@ interface TriviaApi {
         @Query("category") category: Int,
         @Query("difficulty") difficulty: String,
         @Query("type") type: String
-    )
+    ): Call<TriviaResponse>
 }
