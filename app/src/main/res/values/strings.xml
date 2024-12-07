@@ -49,8 +49,34 @@
     <string name="answerOption4">Answer Option 4</string>
     <string name="finish">Finish!</string>
 
-<!--    Dialog Boxes-->
+<!--    Dialog Boxes    -->
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="save">Save</string>
+
+<!--    Trivia Categories     -->
+    <string name="trivGeneralKnowledge">General Knowledge</string>
+    <string name="trivBooks">Books</string>
+    <string name="trivFilm">Film</string>
+    <string name="trivMusic">Music</string>
+    <string name="trivMusicals">Musicals \% Theatres</string>
+    <string name="trivTelevision">Television</string>
+    <string name="trivVideoGames">Video Games</string>
+    <string name="trivBoardGames">Board Games</string>
+    <string name="trivScienceAndNature">Science %amp; Nature</string>
+    <string name="trivComputers">Computers</string>
+    <string name="trivMathematics">Mathematics</string>
+    <string name="trivMythology">Mythology</string>
+    <string name="trivSports">Sports</string>
+    <string name="trivGeography">Geography</string>
+    <string name="trivHistory">History</string>
+    <string name="trivPolitics">Politics</string>
+    <string name="trivArt">Art</string>
+    <string name="trivCelebrities">Celebrities</string>
+    <string name="trivAnimals">Animals</string>
+    <string name="trivVehicles">Vehicles</string>
+    <string name="trivComics">Comics</string>
+    <string name="trivGadgets">Gadgets</string>
+    <string name="trivJapaneseAnimeAndManga">Japanese Anime %amp; Manga</string>
+    <string name="trivCartoonAndAnimations">Cartoon %amp; Animations</string>
 </resources>
