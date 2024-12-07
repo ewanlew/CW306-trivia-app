@@ -97,7 +97,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleUserSelection(user: User) {
-        // Create a dialog to prompt for the password
         val dialogView = layoutInflater.inflate(R.layout.dialog_password_prompt, null)
         val passwordInput = dialogView.findViewById<EditText>(R.id.etPasswordPrompt)
         val submitButton = dialogView.findViewById<Button>(R.id.btnSubmitPassword)
@@ -109,16 +108,13 @@ class MainActivity : AppCompatActivity() {
         submitButton.setOnClickListener {
             val enteredPassword = passwordInput.text.toString().trim()
 
-            // Retrieve the stored password for the selected user
             val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
             val storedPassword = sharedPref.getString("${user.username}:password", "")
 
             if (enteredPassword == storedPassword) {
-                // Password is correct, navigate to HomeActivity
                 dialog.dismiss()
                 navigateToHome(user)
             } else {
-                // Password is incorrect, show an error message
                 passwordInput.error = "Incorrect password"
             }
         }
