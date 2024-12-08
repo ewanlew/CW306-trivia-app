@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/alexandria"
-                    android:text="@string/coinsShowcase"
+                    android:text="@string/gemsShowcase"
                     android:textAlignment="center"
                     android:textSize="14sp" />
             </LinearLayout>

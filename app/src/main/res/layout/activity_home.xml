@@ -251,7 +251,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/alexandria"
                 android:padding="16dp"
-                android:text="@string/coinsShowcase"
+                android:text="@string/gemsShowcase"
                 android:textAlignment="center"
                 android:textSize="14sp" />
         </androidx.cardview.widget.CardView>

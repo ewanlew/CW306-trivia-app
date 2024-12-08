@@ -4,11 +4,11 @@
     <string name="user_select">Who\'s Playing?</string>
     <string name="add_user">Add User</string>
 
-    <string name="question_number">Question %1$dd</string>
+    <string name="question_number">Question %1$d:</string>
     <string name="trueOption">True</string>
     <string name="falseOption">False</string>
     <string name="submit_button">Confirm</string>
-    <string name="coins_earned">Coins: %1$d</string>
+    <string name="gems_earned">💎 Gems Earned: %1$d</string>
 
     <string name="home">Home</string>
     <string name="hourChar">H</string>
@@ -21,8 +21,8 @@
     <string name="preferences">Preferences</string>
 
     <string name="streakShowcase">Streak: 5 🔥</string>
-    <string name="coinsShowcase">Coins: 200 🪙</string>
-    <string name="playMorePlease">Play Trivia to increase your Streak 🔥 and earn Coins 🪙!</string>
+    <string name="gemsShowcase">Gems: 200 💎</string>
+    <string name="playMorePlease">Play Trivia to increase your Streak 🔥 and earn Gems 💎!</string>
 
     <string name="gamesPlayed">Games Played</string>
     <string name="winRate">Win Rate</string>
@@ -80,4 +80,11 @@
     <string name="trivGadgets">Gadgets</string>
     <string name="trivJapaneseAnimeAndManga">Japanese Anime %amp; Manga</string>
     <string name="trivCartoonAndAnimations">Cartoon %amp; Animations</string>
+
+<!--    Trivia Options Popup    -->
+    <string name="questionType">Question Type</string>
+    <string name="numberOfQuestions">Number of Questions</string>
+    <string name="numberOfQuestionsHint">Enter a number of questions</string>
+    <string name="selectCategory">Select Category</string>
+    <string name="confirm">Confirm</string>
 </resources>

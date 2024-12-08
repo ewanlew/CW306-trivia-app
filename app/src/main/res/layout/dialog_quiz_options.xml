@@ -11,7 +11,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Question Type"
+            android:text="@string/questionType"
             android:textSize="18sp"
             android:layout_marginBottom="8dp" />
 
@@ -23,18 +23,18 @@
                 android:id="@+id/rbTrueFalse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="True/False" />
+                android:text="@string/trueFalse" />
             <RadioButton
                 android:id="@+id/rbMultipleChoice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Multiple Choice" />
+                android:text="@string/multipleChoice" />
         </RadioGroup>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Number of Questions"
+            android:text="@string/numberOfQuestions"
             android:textSize="18sp"
             android:layout_marginTop="16dp" />
 
@@ -43,12 +43,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:hint="Enter number of questions" />
+            android:hint="@string/numberOfQuestionsHint" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Categories"
+            android:text="@string/selectCategory"
             android:textSize="18sp"
             android:layout_marginTop="16dp" />
 
@@ -62,7 +62,7 @@
             android:id="@+id/btnConfirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Confirm"
+            android:text="@string/confirm"
             android:layout_marginTop="16dp" />
     </LinearLayout>
 </ScrollView>

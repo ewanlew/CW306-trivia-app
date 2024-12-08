@@ -145,7 +145,7 @@ class MainActivity : AppCompatActivity() {
     private fun navigateToHome(user: User){
         val intent = Intent(this, HomeActivity::class.java)
         intent.putExtra("username", user.username)
-        intent.putExtra("avaterResId", user.avatarResId)
+        intent.putExtra("avatarResId", user.avatarResId)
         startActivity(intent)
     }
 }
