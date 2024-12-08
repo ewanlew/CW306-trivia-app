@@ -87,4 +87,5 @@
     <string name="numberOfQuestionsHint">Enter a number of questions</string>
     <string name="selectCategory">Select Category</string>
     <string name="confirm">Confirm</string>
+    <string name="hardcoreModeInfo">Hardcore Mode: 10 questions, 1 life.</string>
 </resources>
