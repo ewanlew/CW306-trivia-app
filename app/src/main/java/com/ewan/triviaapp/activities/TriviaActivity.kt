@@ -1,6 +1,9 @@
 package com.ewan.triviaapp.activities
 
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import android.view.View
 import android.widget.RadioButton
@@ -15,42 +18,46 @@ class TriviaActivity : AppCompatActivity() {
 
     private lateinit var txtQuestion: TextView
     private lateinit var txtQuestionNo: TextView
-    private lateinit var txtCoinsEarned: TextView
+    private lateinit var txtGemsEarned: TextView
     private lateinit var linLayAnswers: RadioGroup
     private lateinit var btnConfirmAnswer: View
-    private lateinit var imgLife1: View
-    private lateinit var imgLife2: View
+    private lateinit var txtLivesCount: TextView
 
     private var questions: List<TriviaQuestion> = listOf()
     private var currentQuestionIndex = 0
-    private var lives = 2
-    private var coins = 0
-    private var coinValue = 0
+    private var lives = 0
+    private var gems = 0
+    private var gemValue = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_trivia_questions)
 
-        // Initialize views
         txtQuestion = findViewById(R.id.txtQuestion)
         txtQuestionNo = findViewById(R.id.txtQuestionNo)
-        txtCoinsEarned = findViewById(R.id.txtCoinsEarned)
+        txtGemsEarned = findViewById(R.id.txtCoinsEarned)
         linLayAnswers = findViewById(R.id.linLayAnswers)
         btnConfirmAnswer = findViewById(R.id.btnConfirmAnswer)
-        imgLife1 = findViewById(R.id.imgLife1)
-        imgLife2 = findViewById(R.id.imgLife2)
+        txtLivesCount = findViewById(R.id.txtLivesCount)
 
         // Retrieve data
         questions = intent.getParcelableArrayListExtra<TriviaQuestion>("questions") ?: listOf()
         val difficulty = intent.getStringExtra("difficulty") ?: "easy"
 
-        // Determine coin value based on difficulty
-        coinValue = when (difficulty) {
+        // Determine gem value based on difficulty
+        gemValue = when (difficulty) {
             "easy" -> 50
             "medium" -> 100
             "hard" -> 150
             else -> 50
         }
+
+        // Calculate lives based on the number of questions
+        lives = calculateLives(questions.size)
+        updateLivesDisplay()
+
+        // Set initial gem count to 0
+        txtGemsEarned.text = getString(R.string.gems_earned, 0)
 
         if (questions.isEmpty()) {
             Toast.makeText(this, "No questions available.", Toast.LENGTH_SHORT).show()
@@ -66,10 +73,18 @@ class TriviaActivity : AppCompatActivity() {
         }
     }
 
+    private fun calculateLives(numQuestions: Int): Int {
+        return (numQuestions / 5) + 1 // Calculate lives for every 5 questions
+    }
+
+    private fun updateLivesDisplay() {
+        txtLivesCount.text = "x$lives"
+    }
+
     private fun loadQuestion() {
         if (currentQuestionIndex >= questions.size) {
             // End of quiz
-            Toast.makeText(this, "Quiz complete! Total coins: $coins", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Quiz complete! Total gems: $gems", Toast.LENGTH_LONG).show()
             finish()
             return
         }
@@ -78,7 +93,7 @@ class TriviaActivity : AppCompatActivity() {
 
         // Set question number and text
         txtQuestionNo.text = getString(R.string.question_number, currentQuestionIndex + 1)
-        txtQuestion.text = question.question
+        txtQuestion.text = Html.fromHtml(question.question) // Decode special characters
 
         // Clear previous answers
         linLayAnswers.removeAllViews()
@@ -102,7 +117,7 @@ class TriviaActivity : AppCompatActivity() {
             }
             allAnswers.forEach { answer ->
                 val radioButton = RadioButton(this).apply {
-                    text = answer
+                    text = Html.fromHtml(answer) // Decode special characters
                     id = View.generateViewId()
                 }
                 linLayAnswers.addView(radioButton)
@@ -117,28 +132,30 @@ class TriviaActivity : AppCompatActivity() {
             return
         }
 
-        val selectedOption = findViewById<RadioButton>(selectedOptionId).text.toString()
-        val correctAnswer = questions[currentQuestionIndex].correct_answer
+        val selectedOption = findViewById<RadioButton>(selectedOptionId)
+        val correctAnswer = Html.fromHtml(questions[currentQuestionIndex].correct_answer).toString() // Decode special characters
 
-        if (selectedOption == correctAnswer) {
-            coins += coinValue
-            txtCoinsEarned.text = getString(R.string.coins_earned, coins)
+        if (selectedOption.text.toString() == correctAnswer) {
+            gems += gemValue
+            txtGemsEarned.text = getString(R.string.gems_earned, gems)
             Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show()
+            currentQuestionIndex++
+            loadQuestion()
         } else {
+            // Highlight the incorrect answer
             lives--
-            Toast.makeText(this, "Incorrect!", Toast.LENGTH_SHORT).show()
-            when (lives) {
-                1 -> imgLife2.visibility = View.GONE
-                0 -> {
-                    imgLife1.visibility = View.GONE
-                    Toast.makeText(this, "Game Over!", Toast.LENGTH_LONG).show()
-                    finish()
-                    return
-                }
+            selectedOption.setTextColor(Color.RED)
+            selectedOption.setTypeface(null, Typeface.BOLD)
+            selectedOption.paintFlags = selectedOption.paintFlags or android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
+
+            updateLivesDisplay()
+
+            Toast.makeText(this, "Incorrect! Try again.", Toast.LENGTH_SHORT).show()
+
+            if (lives <= 0) {
+                Toast.makeText(this, "Game Over!", Toast.LENGTH_LONG).show()
+                finish()
             }
         }
-
-        currentQuestionIndex++
-        loadQuestion()
     }
 }
