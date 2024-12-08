@@ -4,10 +4,11 @@
     <string name="user_select">Who\'s Playing?</string>
     <string name="add_user">Add User</string>
 
-    <string name="question_number">Question %d</string>
+    <string name="question_number">Question %1$dd</string>
     <string name="trueOption">True</string>
     <string name="falseOption">False</string>
     <string name="submit_button">Confirm</string>
+    <string name="coins_earned">Coins: %1$d</string>
 
     <string name="home">Home</string>
     <string name="hourChar">H</string>

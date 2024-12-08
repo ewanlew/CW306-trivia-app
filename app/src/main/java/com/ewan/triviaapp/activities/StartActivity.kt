@@ -1,5 +1,6 @@
 package com.ewan.triviaapp.activities
 
+import android.content.Intent
 import com.ewan.triviaapp.network.TriviaApiService
 import android.os.Bundle
 import android.util.Log
@@ -114,9 +115,14 @@ class StartActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<TriviaResponse>, response: Response<TriviaResponse>) {
                     if (response.isSuccessful) {
                         val questions = response.body()?.results ?: emptyList()
-                        Log.d("TriviaAPI", "Questions Retrieved: $questions")
-
-                        // Navigate to quiz screen with questions (implement navigation logic)
+                        if (questions.isNotEmpty()) {
+                            val intent = Intent(this@StartActivity, TriviaActivity::class.java)
+                            intent.putParcelableArrayListExtra("questions", ArrayList(questions))
+                            intent.putExtra("difficulty", difficulty)
+                            startActivity(intent)
+                        } else {
+                            Log.e("TriviaAPI", "No questions retrieved.")
+                        }
                     } else {
                         Log.e("TriviaAPI", "Error: ${response.code()}")
                     }
