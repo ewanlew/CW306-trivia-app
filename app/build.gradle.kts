@@ -44,6 +44,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    implementation(libs.konfetti.xml)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
