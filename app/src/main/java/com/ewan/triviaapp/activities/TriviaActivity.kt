@@ -54,9 +54,8 @@ class TriviaActivity : AppCompatActivity() {
         // Retrieve data
         questions = intent.getParcelableArrayListExtra<TriviaQuestion>("questions") ?: listOf()
         val difficulty = intent.getStringExtra("difficulty") ?: "easy"
+        val isHardcoreMode = intent.getBooleanExtra("hardcoreMode", false) // Get hardcoreMode flag
 
-        // Check if hardcore mode
-        isHardcoreMode = difficulty == "hardcore"
         gemValue = when (difficulty) {
             "easy" -> 50
             "medium" -> 100
@@ -65,11 +64,13 @@ class TriviaActivity : AppCompatActivity() {
             else -> 50
         }
 
-        // Set lives based on difficulty
-        val isHardcore = intent.getBooleanExtra("isHardcore", false)
-        lives = calculateLives(questions.size, isHardcore)
+        // Calculate lives based on mode
+        lives = if (isHardcoreMode) {
+            1 // Hardcore mode has exactly 1 life
+        } else {
+            calculateLives(questions.size) // Normal calculation for other modes
+        }
         updateLivesDisplay()
-
 
         // Set initial gem count
         txtGemsEarned.text = getString(R.string.gems_earned, 0)
@@ -88,14 +89,11 @@ class TriviaActivity : AppCompatActivity() {
         }
     }
 
-    private fun calculateLives(numQuestions: Int, isHardcore: Boolean): Int {
-        return if (isHardcore) {
-            1 // Hardcore mode always has 1 life
-        } else {
-            // Calculate lives for every 5 questions, with a minimum of 5 questions
-            ((numQuestions / 5) * 2).coerceAtLeast(2)
-        }
+
+    private fun calculateLives(numQuestions: Int): Int {
+        return ((numQuestions / 5) * 2).coerceAtLeast(2) // Lives are 2 per 5 questions, with a minimum of 2
     }
+
 
 
 

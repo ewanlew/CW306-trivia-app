@@ -102,13 +102,13 @@ class StartActivity : AppCompatActivity() {
             }
 
             val categoryId = TriviaConstants.categoryIdMap[selectedCategory!!.name] ?: 9
-
             fetchQuestions(10, categoryId, "hard", "multiple", hardcoreMode = true)
             dialog.dismiss()
         }
 
         dialog.show()
     }
+
 
     private fun fetchQuestions(
         amount: Int,
@@ -126,11 +126,7 @@ class StartActivity : AppCompatActivity() {
                             val intent = Intent(this@StartActivity, TriviaActivity::class.java)
                             intent.putParcelableArrayListExtra("questions", ArrayList(questions))
                             intent.putExtra("difficulty", difficulty)
-
-                            if (hardcoreMode) {
-                                intent.putExtra("hardcoreMode", true)
-                                intent.putExtra("lives", 1) // Set 1 life for hardcore mode
-                            }
+                            intent.putExtra("hardcoreMode", hardcoreMode) // Pass Hardcore flag
                             startActivity(intent)
                         } else {
                             Log.e("TriviaAPI", "No questions retrieved.")
@@ -145,6 +141,7 @@ class StartActivity : AppCompatActivity() {
                 }
             })
     }
+
 
     private fun getCategories(): List<TriviaCategory> {
         return listOf(
