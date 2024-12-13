@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +15,11 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ewan.triviaapp.R
+import com.ewan.triviaapp.models.GameHistory
 import com.ewan.triviaapp.models.User
+import com.ewan.triviaapp.models.UserProfile
+import com.google.gson.Gson
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var userAdapter: UserAdapter
     private val userList = mutableListOf<User>()
     private val DEFAULT_AVATAR_RES_ID = R.drawable.avi_default
+    private val gson = Gson()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,9 +50,10 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val addUserButton = findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(
-            R.id.btnAddUser
-        )
+        val addUserButton =
+            findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(
+                R.id.btnAddUser
+            )
         addUserButton.setOnClickListener {
             showAddUserDialog()
         }
@@ -69,9 +74,20 @@ class MainActivity : AppCompatActivity() {
             val password = passwordInput.text.toString().trim()
 
             if (username.isNotEmpty() && password.isNotEmpty()) {
-                val newUser = User(username, DEFAULT_AVATAR_RES_ID)
-                saveUser(username, password, DEFAULT_AVATAR_RES_ID)
-                userList.add(newUser)
+                val userProfile = UserProfile(
+                    username = username,
+                    password = password,
+                    avatarResId = DEFAULT_AVATAR_RES_ID,
+                    streak = 0,
+                    gems = 0,
+                    hardcoreUnlocked = false,
+                    gameHistory = mutableListOf(),
+                    unlockedAvatars = mutableListOf(DEFAULT_AVATAR_RES_ID),
+                    pushNotificationsEnabled = false,
+                    triviaResetTime = "12:00 PM"
+                )
+                saveUserProfile(userProfile)
+                userList.add(User(username, DEFAULT_AVATAR_RES_ID))
                 userAdapter.notifyItemInserted(userList.size - 1)
                 dialog.dismiss()
             } else {
@@ -81,14 +97,65 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun saveUser(username: String, password: String, avatarResId: Int) {
+    private fun saveUserProfile(userProfile: UserProfile) {
         val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
-        editor.putString("$username:password", password)
-        editor.putInt("$username:avatar", avatarResId)
-        editor.apply()
-        Log.d("SaveUser", "Saving user: $username, Password: $password, Avatar Res ID: $avatarResId")
 
+        editor.putString("${userProfile.username}:password", userProfile.password)
+        editor.putInt("${userProfile.username}:avatar", userProfile.avatarResId)
+        editor.putInt("${userProfile.username}:streak", userProfile.streak)
+        editor.putInt("${userProfile.username}:gems", userProfile.gems)
+        editor.putBoolean("${userProfile.username}:hardcoreUnlocked", userProfile.hardcoreUnlocked)
+
+        val gameHistoryJson = gson.toJson(userProfile.gameHistory)
+        editor.putString("${userProfile.username}:gameHistory", gameHistoryJson)
+
+        val unlockedAvatarsJson = gson.toJson(userProfile.unlockedAvatars)
+        editor.putString("${userProfile.username}:unlockedAvatars", unlockedAvatarsJson)
+
+        editor.putBoolean("${userProfile.username}:pushNotificationsEnabled", userProfile.pushNotificationsEnabled)
+        editor.putString("${userProfile.username}:triviaResetTime", userProfile.triviaResetTime)
+
+        editor.apply()
+        Log.d("SaveUserProfile", "Saved profile for ${userProfile.username}")
+    }
+
+    private fun loadUserProfile(username: String): UserProfile? {
+        val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+        val password = sharedPref.getString("$username:password", null) ?: return null
+        val avatarResId = sharedPref.getInt("$username:avatar", DEFAULT_AVATAR_RES_ID)
+        val streak = sharedPref.getInt("$username:streak", 0)
+        val gems = sharedPref.getInt("$username:gems", 0)
+        val hardcoreUnlocked = sharedPref.getBoolean("$username:hardcoreUnlocked", false)
+        val triviaResetTime = sharedPref.getString("$username:triviaResetTime", "12:00 PM") ?: "12:00 PM"
+        val pushNotificationsEnabled = sharedPref.getBoolean("$username:pushNotificationsEnabled", false)
+
+        val gameHistoryJson = sharedPref.getString("$username:gameHistory", null)
+        val gameHistory = if (gameHistoryJson != null) {
+            gson.fromJson(gameHistoryJson, Array<GameHistory>::class.java).toMutableList()
+        } else {
+            mutableListOf()
+        }
+
+        val unlockedAvatarsJson = sharedPref.getString("$username:unlockedAvatars", null)
+        val unlockedAvatars = if (unlockedAvatarsJson != null) {
+            gson.fromJson(unlockedAvatarsJson, Array<Int>::class.java).toMutableList()
+        } else {
+            mutableListOf()
+        }
+
+        return UserProfile(
+            username = username,
+            password = password,
+            avatarResId = avatarResId,
+            streak = streak,
+            gems = gems,
+            hardcoreUnlocked = hardcoreUnlocked,
+            gameHistory = gameHistory,
+            unlockedAvatars = unlockedAvatars,
+            pushNotificationsEnabled = pushNotificationsEnabled,
+            triviaResetTime = triviaResetTime
+        )
     }
 
     private fun loadUsers() {
@@ -96,20 +163,14 @@ class MainActivity : AppCompatActivity() {
         for (entry in sharedPref.all) {
             if (entry.key.contains(":password")) {
                 val username = entry.key.split(":")[0]
-                val avatarResId = sharedPref.getInt("$username:avatar", DEFAULT_AVATAR_RES_ID)
-                Log.d("MainActivity", "Loaded user: $username with Avatar Res ID: $avatarResId")
-                userList.add(User(username, avatarResId))
+                val userProfile = loadUserProfile(username)
+                if (userProfile != null) {
+                    userList.add(User(username, userProfile.avatarResId))
+                }
             }
         }
         userAdapter.notifyDataSetChanged()
     }
-
-    private fun clearSharedPreferences() {
-        val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
-        sharedPref.edit().clear().apply()
-        Log.d("SharedPreferences", "Cleared all user data")
-    }
-
 
     private fun handleUserSelection(user: User) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_password_prompt, null)
@@ -122,17 +183,11 @@ class MainActivity : AppCompatActivity() {
 
         submitButton.setOnClickListener {
             val enteredPassword = passwordInput.text.toString().trim()
+            val userProfile = loadUserProfile(user.username)
 
-            val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
-            for ((key, value) in sharedPref.all) {
-                Log.d("SharedPreferences", "Key: $key, Value: $value")
-            }
-
-            val storedPassword = sharedPref.getString("${user.username}:password", "")
-
-            if (enteredPassword == storedPassword) {
+            if (userProfile != null && enteredPassword == userProfile.password) {
                 dialog.dismiss()
-                navigateToHome(user)
+                navigateToHome(userProfile)
             } else {
                 passwordInput.error = "Incorrect password"
             }
@@ -141,11 +196,10 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
-
-    private fun navigateToHome(user: User){
+    private fun navigateToHome(userProfile: UserProfile) {
         val intent = Intent(this, HomeActivity::class.java)
-        intent.putExtra("username", user.username)
-        intent.putExtra("avatarResId", user.avatarResId)
+        intent.putExtra("username", userProfile.username)
+        intent.putExtra("avatarResId", userProfile.avatarResId)
         startActivity(intent)
     }
 }
