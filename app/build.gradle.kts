@@ -46,6 +46,7 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.konfetti.xml)
     implementation(libs.androidx.preference)
+    implementation(libs.gson)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
