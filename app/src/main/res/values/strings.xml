@@ -20,8 +20,8 @@
     <string name="triviaExc">Trivia!</string>
     <string name="preferences">Preferences</string>
 
-    <string name="streakShowcase">Streak: 5 🔥</string>
-    <string name="gemsShowcase">Gems: 200 💎</string>
+    <string name="streakShowcase">Streak: %1$d 🔥</string>
+    <string name="gemsShowcase">Gems: %1$d 💎</string>
     <string name="playMorePlease">Play Trivia to increase your Streak 🔥 and earn Gems 💎!</string>
 
     <string name="gamesPlayed">Games Played</string>

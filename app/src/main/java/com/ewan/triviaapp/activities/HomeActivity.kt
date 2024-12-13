@@ -17,6 +17,8 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var txtHourVal: TextView
     private lateinit var txtMinVal: TextView
     private lateinit var txtSecVal: TextView
+    private lateinit var txtStreak: TextView
+    private lateinit var txtGems: TextView
 
     private val handler = Handler(Looper.getMainLooper())
 
@@ -24,13 +26,26 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        val username = intent.getStringExtra("username")
+        val username = intent.getStringExtra("username") ?: return
         val avatarResId = intent.getIntExtra("avatarResId", R.drawable.avi_default)
 
+        // Initialize views
         txtHourVal = findViewById(R.id.txtNewQuestionHourVal)
         txtMinVal = findViewById(R.id.txtNewQuestionMinVal)
         txtSecVal = findViewById(R.id.txtNewQuestionSecVal)
+        txtStreak = findViewById(R.id.txtStreak)
+        txtGems = findViewById(R.id.txtCoins)
 
+        // Retrieve user data from SharedPreferences
+        val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+        val streak = sharedPref.getInt("$username:currentStreak", 0)
+        val gems = sharedPref.getInt("$username:currentGems", 0)
+
+        // Display the streak and gems
+        txtStreak.text = getString(R.string.streakShowcase, streak)
+        txtGems.text = getString(R.string.gemsShowcase, gems)
+
+        // Setup buttons
         val startButton = findViewById<Button>(R.id.btnStart)
         startButton.setOnClickListener {
             val intent = Intent(this, StartActivity::class.java)
@@ -39,12 +54,12 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        startCountdownTimer()
+        // Start the countdown timer
+        startCountdownTimer(username)
     }
 
-    private fun startCountdownTimer() {
+    private fun startCountdownTimer(username: String) {
         val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
-        val username = intent.getStringExtra("username") ?: return
 
         // Retrieve the trivia reset time from SharedPreferences
         val resetTime = sharedPref.getString("$username:triviaResetTime", "12:00") ?: "12:00"
@@ -91,7 +106,6 @@ class HomeActivity : AppCompatActivity() {
         txtHourVal.text = "00"
         txtMinVal.text = "00"
         txtSecVal.text = "00"
-        // Optionally, trigger some action when the timer resets
     }
 
     override fun onDestroy() {
