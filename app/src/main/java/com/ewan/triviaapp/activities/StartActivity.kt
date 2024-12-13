@@ -1,10 +1,12 @@
 package com.ewan.triviaapp.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.RadioGroup
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +16,9 @@ import com.ewan.triviaapp.adapters.CategoryAdapter
 import com.ewan.triviaapp.models.TriviaCategory
 import com.ewan.triviaapp.models.TriviaConstants
 import com.ewan.triviaapp.models.TriviaResponse
+import com.ewan.triviaapp.models.UserProfile
 import com.ewan.triviaapp.network.TriviaApiService
+import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,16 +26,43 @@ import retrofit2.Response
 class StartActivity : AppCompatActivity() {
 
     private var selectedCategory: TriviaCategory? = null
+    private var isHardcoreUnlocked = false
+    private val gson = Gson()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_select)
 
-        // Set up difficulty buttons
+        val username = intent.getStringExtra("username") ?: return
+
+        loadUserProfile(username)
+
         findViewById<Button>(R.id.btnEasy).setOnClickListener { showQuizOptionsDialog("easy") }
         findViewById<Button>(R.id.btnNormal).setOnClickListener { showQuizOptionsDialog("medium") }
         findViewById<Button>(R.id.btnHard).setOnClickListener { showQuizOptionsDialog("hard") }
-        findViewById<Button>(R.id.btnHardcore).setOnClickListener { showHardcoreDialog() }
+
+        val hardcoreButton = findViewById<Button>(R.id.btnHardcore)
+        val hardcoreDescription = findViewById<TextView>(R.id.txtHardcoreDescription)
+
+        hardcoreButton.isEnabled = isHardcoreUnlocked
+        hardcoreButton.alpha = if (isHardcoreUnlocked) 1.0f else 0.5f
+        hardcoreDescription.text = if (isHardcoreUnlocked) getString(R.string.hardcoreDesc) else getString(R.string.hardcoreLockedDesc)
+        hardcoreButton.setOnClickListener {
+            if (isHardcoreUnlocked) {
+                showHardcoreDialog()
+            }
+        }
+    }
+
+    private fun loadUserProfile(username: String) {
+        val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+        val userProfileJson = sharedPref.getString("$username:profile", null)
+        if (userProfileJson != null) {
+            val userProfile = gson.fromJson(userProfileJson, UserProfile::class.java)
+            isHardcoreUnlocked = userProfile.hardcoreUnlocked
+        } else {
+            Log.e("StartActivity", "User profile not found for username: $username")
+        }
     }
 
     private fun showQuizOptionsDialog(difficulty: String) {
@@ -43,7 +74,6 @@ class StartActivity : AppCompatActivity() {
 
         val categories = getCategories()
 
-        // Set up the adapter and RecyclerView
         val adapter = CategoryAdapter(categories) { category ->
             selectedCategory = category
             Log.d("CategorySelection", "Selected category: ${category.name}")
@@ -109,7 +139,6 @@ class StartActivity : AppCompatActivity() {
         dialog.show()
     }
 
-
     private fun fetchQuestions(
         amount: Int,
         category: Int,
@@ -141,7 +170,6 @@ class StartActivity : AppCompatActivity() {
                 }
             })
     }
-
 
     private fun getCategories(): List<TriviaCategory> {
         return listOf(

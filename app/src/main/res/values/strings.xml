@@ -38,6 +38,7 @@
     <string name="gameDesc">Standard Trivia! 2 lives for every five questions.</string>
     <string name="hardcore">Hardcore</string>
     <string name="hardcoreDesc">Hard mode. One life. Ten questions. Can you do it?</string>
+    <string name="hardcoreLockedDesc">The ultimate test. Unlock it in your Collection.</string>
 
     <string name="createTrivia">Create Trivia!</string>
     <string name="yourTriviaName">Name your Trivia!</string>
