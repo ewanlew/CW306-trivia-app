@@ -1,10 +1,12 @@
 package com.ewan.triviaapp.activities
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import android.view.View
 import android.widget.RadioButton
 import android.widget.RadioGroup
@@ -13,6 +15,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.ewan.triviaapp.R
 import com.ewan.triviaapp.models.TriviaQuestion
+import com.ewan.triviaapp.models.UserProfile
+import com.google.gson.Gson
 import nl.dionsegijn.konfetti.core.Party
 import nl.dionsegijn.konfetti.core.Position
 import nl.dionsegijn.konfetti.core.Rotation
@@ -37,7 +41,9 @@ class TriviaActivity : AppCompatActivity() {
     private var lives = 0
     private var gems = 0
     private var gemValue = 0
-    private var isHardcoreMode = false
+
+    private lateinit var username: String
+    private val gson = Gson()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,9 +58,10 @@ class TriviaActivity : AppCompatActivity() {
         konfettiView = findViewById(R.id.konfettiView)
 
         // Retrieve data
+        username = intent.getStringExtra("username") ?: return
         questions = intent.getParcelableArrayListExtra<TriviaQuestion>("questions") ?: listOf()
         val difficulty = intent.getStringExtra("difficulty") ?: "easy"
-        val isHardcoreMode = intent.getBooleanExtra("hardcoreMode", false) // Get hardcoreMode flag
+        val isHardcoreMode = intent.getBooleanExtra("hardcoreMode", false)
 
         gemValue = when (difficulty) {
             "easy" -> 50
@@ -64,15 +71,13 @@ class TriviaActivity : AppCompatActivity() {
             else -> 50
         }
 
-        // Calculate lives based on mode
         lives = if (isHardcoreMode) {
             1 // Hardcore mode has exactly 1 life
         } else {
-            calculateLives(questions.size) // Normal calculation for other modes
+            calculateLives(questions.size)
         }
         updateLivesDisplay()
 
-        // Set initial gem count
         txtGemsEarned.text = getString(R.string.gems_earned, 0)
 
         if (questions.isEmpty()) {
@@ -81,7 +86,6 @@ class TriviaActivity : AppCompatActivity() {
             return
         }
 
-        // Load the first question
         loadQuestion()
 
         btnConfirmAnswer.setOnClickListener {
@@ -89,13 +93,9 @@ class TriviaActivity : AppCompatActivity() {
         }
     }
 
-
     private fun calculateLives(numQuestions: Int): Int {
         return ((numQuestions / 5) * 2).coerceAtLeast(2) // Lives are 2 per 5 questions, with a minimum of 2
     }
-
-
-
 
     private fun updateLivesDisplay() {
         txtLivesCount.text = "x$lives"
@@ -124,21 +124,17 @@ class TriviaActivity : AppCompatActivity() {
 
     private fun loadQuestion() {
         if (currentQuestionIndex >= questions.size) {
-            Toast.makeText(this, "Quiz complete! Total gems: $gems", Toast.LENGTH_LONG).show()
-            finish()
+            finishQuiz()
             return
         }
 
         val question = questions[currentQuestionIndex]
 
-        // Display question and number
         txtQuestionNo.text = getString(R.string.question_number, currentQuestionIndex + 1)
         txtQuestion.text = Html.fromHtml(question.question)
 
-        // Clear previous answers
         linLayAnswers.removeAllViews()
 
-        // Dynamically load answers
         if (question.type == "boolean") {
             val trueOption = RadioButton(this).apply {
                 text = "True"
@@ -179,7 +175,6 @@ class TriviaActivity : AppCompatActivity() {
         if (selectedOption.text.toString() == correctAnswer) {
             gems += gemValue
             txtGemsEarned.text = getString(R.string.gems_earned, gems)
-            Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show()
             showConfetti()
             currentQuestionIndex++
             loadQuestion()
@@ -188,15 +183,42 @@ class TriviaActivity : AppCompatActivity() {
             selectedOption.setTextColor(Color.RED)
             selectedOption.setTypeface(null, Typeface.BOLD)
             selectedOption.paintFlags = selectedOption.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-
             updateLivesDisplay()
 
-            Toast.makeText(this, "Incorrect! Try again.", Toast.LENGTH_SHORT).show()
-
             if (lives <= 0) {
-                Toast.makeText(this, "Game Over!", Toast.LENGTH_LONG).show()
-                finish()
+                finishQuiz()
             }
         }
     }
+
+    private fun finishQuiz() {
+        val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+        val userProfileJson = sharedPref.getString("$username:profile", null)
+        val editor = sharedPref.edit()
+
+        if (userProfileJson != null) {
+            val userProfile = gson.fromJson(userProfileJson, UserProfile::class.java)
+
+            userProfile.gems += gems
+            userProfile.streak += 1
+
+            editor.putString("$username:profile", gson.toJson(userProfile))
+        }
+
+        editor.putInt("$username:currentGems", sharedPref.getInt("$username:currentGems", 0) + gems)
+        editor.putInt("$username:currentStreak", sharedPref.getInt("$username:currentStreak", 0) + 1)
+        editor.apply()
+
+        Toast.makeText(this, "Quiz complete! Total gems earned: $gems", Toast.LENGTH_LONG).show()
+        finish()
+    }
+
+
+    private fun saveUserProfile(userProfile: UserProfile) {
+        val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        editor.putString("$username:profile", gson.toJson(userProfile))
+        editor.apply()
+    }
+
 }

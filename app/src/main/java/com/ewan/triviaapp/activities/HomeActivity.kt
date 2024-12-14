@@ -73,7 +73,7 @@ class HomeActivity : AppCompatActivity() {
 
                 if (timeRemaining > 0) {
                     updateCountdownDisplay(timeRemaining)
-                    handler.postDelayed(this, 1000) // Update every second
+                    handler.postDelayed(this, 1000)
                 } else {
                     resetCountdown()
                 }
@@ -112,4 +112,25 @@ class HomeActivity : AppCompatActivity() {
         super.onDestroy()
         handler.removeCallbacksAndMessages(null) // Stop the handler when activity is destroyed
     }
+
+    override fun onResume() {
+        super.onResume()
+        // Update streak and gems when the activity is resumed
+        updateStreakAndGems()
+    }
+
+    private fun updateStreakAndGems() {
+        // Retrieve username from Intent
+        val username = intent.getStringExtra("username") ?: return
+
+        // Retrieve user data from SharedPreferences
+        val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+        val streak = sharedPref.getInt("$username:currentStreak", 0)
+        val gems = sharedPref.getInt("$username:currentGems", 0)
+
+        // Display the streak and gems
+        txtStreak.text = getString(R.string.streakShowcase, streak)
+        txtGems.text = getString(R.string.gemsShowcase, gems)
+    }
+
 }

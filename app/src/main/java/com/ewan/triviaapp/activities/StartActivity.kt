@@ -28,14 +28,27 @@ class StartActivity : AppCompatActivity() {
     private var selectedCategory: TriviaCategory? = null
     private var isHardcoreUnlocked = false
     private val gson = Gson()
+    private var username = "user"
+    private lateinit var txtStreak: TextView
+    private lateinit var txtGems: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_select)
 
-        val username = intent.getStringExtra("username") ?: return
+        username = intent.getStringExtra("username") ?: return
 
         loadUserProfile(username)
+
+        txtStreak = findViewById(R.id.txtStreak)
+        txtGems = findViewById(R.id.txtCoins)
+
+        val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+        val streak = sharedPref.getInt("$username:currentStreak", 0)
+        val gems = sharedPref.getInt("$username:currentGems", 0)
+
+        txtStreak.text = getString(R.string.streakShowcase, streak)
+        txtGems.text = getString(R.string.gemsShowcase, gems)
 
         findViewById<Button>(R.id.btnEasy).setOnClickListener { showQuizOptionsDialog("easy") }
         findViewById<Button>(R.id.btnNormal).setOnClickListener { showQuizOptionsDialog("medium") }
@@ -156,6 +169,7 @@ class StartActivity : AppCompatActivity() {
                             intent.putParcelableArrayListExtra("questions", ArrayList(questions))
                             intent.putExtra("difficulty", difficulty)
                             intent.putExtra("hardcoreMode", hardcoreMode) // Pass Hardcore flag
+                            intent.putExtra("username", username)
                             startActivity(intent)
                         } else {
                             Log.e("TriviaAPI", "No questions retrieved.")
@@ -199,4 +213,26 @@ class StartActivity : AppCompatActivity() {
             TriviaCategory("Cartoon & Animations", "\uD83C\uDF83")
         )
     }
+
+
+    override fun onResume() {
+        super.onResume()
+        // Update streak and gems when the activity is resumed
+        updateStreakAndGems()
+    }
+
+    private fun updateStreakAndGems() {
+        // Retrieve username from Intent
+        val username = intent.getStringExtra("username") ?: return
+
+        // Retrieve user data from SharedPreferences
+        val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+        val streak = sharedPref.getInt("$username:currentStreak", 0)
+        val gems = sharedPref.getInt("$username:currentGems", 0)
+
+        // Display the streak and gems
+        txtStreak.text = getString(R.string.streakShowcase, streak)
+        txtGems.text = getString(R.string.gemsShowcase, gems)
+    }
+
 }
