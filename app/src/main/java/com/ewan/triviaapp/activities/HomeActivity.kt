@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -60,16 +61,23 @@ class HomeActivity : AppCompatActivity() {
 
     private fun startCountdownTimer(username: String) {
         val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
-
-        // Retrieve the trivia reset time from SharedPreferences
-        val resetTime = sharedPref.getString("$username:triviaResetTime", "12:00") ?: "12:00"
+        val resetTime = sharedPref.getString("$username:triviaResetTime", "12:00 PM") ?: "12:00 PM"
         val targetTime = parseTimeToMillis(resetTime)
 
-        // Schedule the timer update
+        Log.d("HomeActivity", "Fetched resetTime: $resetTime")
+        Log.d("HomeActivity", "Calculated targetTime: $targetTime")
+
+        handler.removeCallbacksAndMessages(null)
+
         handler.post(object : Runnable {
             override fun run() {
                 val currentTime = System.currentTimeMillis()
-                val timeRemaining = targetTime - (currentTime % TimeUnit.DAYS.toMillis(1))
+                val dailyMillis = TimeUnit.DAYS.toMillis(1)
+                val timeRemaining = if (currentTime % dailyMillis > targetTime) {
+                    dailyMillis - (currentTime % dailyMillis - targetTime)
+                } else {
+                    targetTime - (currentTime % dailyMillis)
+                }
 
                 if (timeRemaining > 0) {
                     updateCountdownDisplay(timeRemaining)
@@ -80,7 +88,7 @@ class HomeActivity : AppCompatActivity() {
             }
         })
     }
-
+    
     private fun parseTimeToMillis(time: String): Long {
         val parts = time.split(":").map { it.toIntOrNull() ?: 0 }
         val calendar = Calendar.getInstance().apply {
