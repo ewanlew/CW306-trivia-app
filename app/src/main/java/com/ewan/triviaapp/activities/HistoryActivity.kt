@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ewan.triviaapp.R
-import com.ewan.triviaapp.adapters.GameHistoryAdapter
+import com.ewan.triviaapp.adapters.TriviaHistoryAdapter
 import com.ewan.triviaapp.models.GameHistory
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -16,7 +16,7 @@ import com.google.gson.reflect.TypeToken
 class HistoryActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: GameHistoryAdapter
+    private lateinit var adapter: TriviaHistoryAdapter
     private lateinit var txtGamesPlayed: TextView
     private lateinit var txtWinRate: TextView
     private val gameHistoryList = mutableListOf<GameHistory>()
@@ -32,7 +32,7 @@ class HistoryActivity : AppCompatActivity() {
         // Initialize the RecyclerView
         recyclerView = findViewById(R.id.gameRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = GameHistoryAdapter(gameHistoryList)
+        adapter = TriviaHistoryAdapter(gameHistoryList)
         recyclerView.adapter = adapter
 
         // Initialize TextViews for stats
