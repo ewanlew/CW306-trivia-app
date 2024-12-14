@@ -89,4 +89,19 @@
     <string name="selectCategory">Select Category</string>
     <string name="confirm">Confirm</string>
     <string name="hardcoreModeInfo">Hardcore Mode: 10 questions, 1 life.</string>
+
+    <!-- Preferences -->
+    <string name="preferencesTitle">Preferences</string>
+    <string name="triviaSettings">Trivia Settings</string>
+    <string name="pushNotifications">Push Notifications</string>
+    <string name="disabled">Disabled</string>
+    <string name="enabled">Enabled</string>
+    <string name="quizResetTime">Quiz Reset Time</string>
+    <string name="editQuizTime">Edit Quiz Time</string>
+    <string name="accountSettings">Account Settings</string>
+    <string name="hiddenPassword">••••••••</string>
+    <string name="resetAccount">Reset Account</string>
+    <string name="deleteAccount">Delete Account</string>
+    <string name="toolbarBackButton">Navigate Back</string>
+
 </resources>
