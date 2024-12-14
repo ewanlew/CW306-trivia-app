@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/alexandria_bold"
-        android:text="Preferences"
+        android:text="@string/preferencesTitle"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="20sp"
@@ -61,7 +61,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Trivia Settings"
+                        android:text="@string/triviaSettings"
                         android:textAlignment="center"
                         android:textSize="18sp"
                         android:fontFamily="@font/alexandria_bold"
@@ -79,19 +79,19 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Push Notifications"
+                            android:text="@string/pushNotifications"
                             android:textSize="16sp"
                             android:fontFamily="@font/alexandria" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Disabled"
+                            android:text="@string/disabled"
                             android:layout_weight="0.05"
                             android:textSize="16sp"
                             android:textColor="#888888"
                             android:fontFamily="@font/alexandria" />
-                        <Switch
+                        <androidx.appcompat.widget.SwitchCompat
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
@@ -108,7 +108,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Quiz Reset Time"
+                            android:text="@string/quizResetTime"
                             android:textSize="16sp"
                             android:fontFamily="@font/alexandria" />
 
@@ -124,7 +124,7 @@
                             android:id="@+id/btnEditTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:contentDescription="Edit Quiz Time"
+                            android:contentDescription="@string/editQuizTime"
                             android:src="@drawable/ic_edit"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:layout_marginStart="8dp"
@@ -157,7 +157,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Account Settings"
+                        android:text="@string/accountSettings"
                         android:textAlignment="center"
                         android:textSize="18sp"
                         android:fontFamily="@font/alexandria_bold"
@@ -175,14 +175,14 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Username"
+                            android:text="@string/username"
                             android:textSize="16sp"
                             android:fontFamily="@font/alexandria" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="John Doe"
+                            android:text="@string/username"
                             android:textSize="16sp"
                             android:textColor="#888888"
                             android:fontFamily="@font/alexandria" />
@@ -201,14 +201,14 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Password"
+                            android:text="@string/password"
                             android:textSize="16sp"
                             android:fontFamily="@font/alexandria" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="••••••••"
+                            android:text="@string/hiddenPassword"
                             android:textSize="16sp"
                             android:textColor="#888888"
                             android:fontFamily="@font/alexandria" />
@@ -227,21 +227,23 @@
                     <Button
                         android:id="@+id/btnResetAccount"
                         style="@style/Widget.MaterialComponents.Button"
-                        android:layout_width="wrap_content"
+                        android:layout_width="110dp"
                         android:layout_height="wrap_content"
-                        android:text="Reset Account" />
+                        android:layout_weight="1"
+                        android:text="@string/resetAccount" />
 
                     <Space
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:layout_weight="0.2" />
 
                     <Button
                         android:id="@+id/btnDeleteAccount"
                         style="@style/Widget.MaterialComponents.Button"
-                        android:layout_width="wrap_content"
+                        android:layout_width="110dp"
                         android:layout_height="wrap_content"
-                        android:text="Delete Account" />
+                        android:layout_weight="1"
+                        android:text="@string/deleteAccount" />
 
                 </LinearLayout>
                 </LinearLayout>
