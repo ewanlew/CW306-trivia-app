@@ -1,6 +1,7 @@
 package com.ewan.triviaapp.activities
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Typeface
@@ -14,6 +15,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.ewan.triviaapp.R
+import com.ewan.triviaapp.models.GameHistory
+import com.ewan.triviaapp.models.TriviaConstants
 import com.ewan.triviaapp.models.TriviaQuestion
 import com.ewan.triviaapp.models.UserProfile
 import com.google.gson.Gson
@@ -24,6 +27,7 @@ import nl.dionsegijn.konfetti.core.emitter.Emitter
 import nl.dionsegijn.konfetti.core.models.Shape
 import nl.dionsegijn.konfetti.core.models.Size
 import nl.dionsegijn.konfetti.xml.KonfettiView
+import java.util.Date
 import java.util.concurrent.TimeUnit
 
 class TriviaActivity : AppCompatActivity() {
@@ -193,32 +197,63 @@ class TriviaActivity : AppCompatActivity() {
 
     private fun finishQuiz() {
         val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
-        val userProfileJson = sharedPref.getString("$username:profile", null)
         val editor = sharedPref.edit()
+        val newProfile = loadUserProfileFromPrefs(username, sharedPref)
 
-        if (userProfileJson != null) {
-            val userProfile = gson.fromJson(userProfileJson, UserProfile::class.java)
+        newProfile.gems += gems
+        newProfile.streak += 1
 
-            userProfile.gems += gems
-            userProfile.streak += 1
+        val selectedCategoryName = intent.getIntExtra("selectedCategoryName", 9)
+        val newGameHistory = GameHistory(
+            score = "$currentQuestionIndex/${questions.size}",
+            grade = calculateGrade(currentQuestionIndex, questions.size),
+            dateCompleted = Date(System.currentTimeMillis()),
+            difficulty = intent.getStringExtra("difficulty") ?: "easy",
+            category = TriviaConstants.idToCategoryMap[selectedCategoryName] ?: "Unknown Category"
+        )
+        newProfile.gameHistory.add(newGameHistory)
 
-            editor.putString("$username:profile", gson.toJson(userProfile))
-        }
-
-        editor.putInt("$username:currentGems", sharedPref.getInt("$username:currentGems", 0) + gems)
-        editor.putInt("$username:currentStreak", sharedPref.getInt("$username:currentStreak", 0) + 1)
+        editor.putInt("$username:currentGems", newProfile.gems)
+        editor.putInt("$username:currentStreak", newProfile.streak)
+        editor.putString("$username:gameHistory", gson.toJson(newProfile.gameHistory))
         editor.apply()
 
         Toast.makeText(this, "Quiz complete! Total gems earned: $gems", Toast.LENGTH_LONG).show()
         finish()
     }
+    private fun calculateGrade(correctAnswers: Int, totalQuestions: Int): String {
+        val percentage = (correctAnswers.toDouble() / totalQuestions) * 100
+        return when {
+            percentage >= 90 -> "S"
+            percentage >= 80 -> "A"
+            percentage >= 70 -> "B"
+            percentage >= 60 -> "C"
+            else -> "D"
+        }
+    }
 
+    fun loadUserProfileFromPrefs(username: String, sharedPref: SharedPreferences): UserProfile {
+        val defaultGameHistory = mutableListOf<GameHistory>()
+        val defaultUnlockedAvatars = mutableListOf<Int>()
 
-    private fun saveUserProfile(userProfile: UserProfile) {
-        val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
-        val editor = sharedPref.edit()
-        editor.putString("$username:profile", gson.toJson(userProfile))
-        editor.apply()
+        return UserProfile(
+            username = username,
+            password = sharedPref.getString("$username:password", "") ?: "",
+            avatarResId = sharedPref.getInt("$username:avatar", R.drawable.avi_default), // Provide a default avatar
+            streak = sharedPref.getInt("$username:currentStreak", 0),
+            gems = sharedPref.getInt("$username:currentGems", 0),
+            hardcoreUnlocked = sharedPref.getBoolean("$username:hardcoreUnlocked", false),
+            gameHistory = sharedPref.getString("$username:gameHistory", "[]")
+                ?.let { json ->
+                    Gson().fromJson(json, Array<GameHistory>::class.java).toMutableList()
+                } ?: defaultGameHistory,
+            unlockedAvatars = sharedPref.getString("$username:unlockedAvatars", "[]")
+                ?.let { json ->
+                    Gson().fromJson(json, Array<Int>::class.java).toMutableList()
+                } ?: defaultUnlockedAvatars,
+            pushNotificationsEnabled = sharedPref.getBoolean("$username:pushNotificationsEnabled", false),
+            triviaResetTime = sharedPref.getString("$username:triviaResetTime", "12:00 PM") ?: "12:00 PM"
+        )
     }
 
 }

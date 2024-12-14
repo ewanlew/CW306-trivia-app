@@ -27,4 +27,7 @@ object TriviaConstants {
         "Japanese Anime & Manga" to 31,
         "Cartoon & Animations" to 32
     )
+
+    val idToCategoryMap = categoryIdMap.entries.associateBy({ it.value }, { it.key })
+
 }

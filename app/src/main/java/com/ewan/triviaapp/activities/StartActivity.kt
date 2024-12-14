@@ -168,6 +168,7 @@ class StartActivity : AppCompatActivity() {
                             val intent = Intent(this@StartActivity, TriviaActivity::class.java)
                             intent.putParcelableArrayListExtra("questions", ArrayList(questions))
                             intent.putExtra("difficulty", difficulty)
+                            intent.putExtra("selectedCategoryName", category)
                             intent.putExtra("hardcoreMode", hardcoreMode) // Pass Hardcore flag
                             intent.putExtra("username", username)
                             startActivity(intent)
