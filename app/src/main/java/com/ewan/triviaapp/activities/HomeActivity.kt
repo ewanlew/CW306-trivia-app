@@ -22,13 +22,13 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var txtGems: TextView
 
     private val handler = Handler(Looper.getMainLooper())
+    private lateinit var username: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        val username = intent.getStringExtra("username") ?: return
-        val avatarResId = intent.getIntExtra("avatarResId", R.drawable.avi_default)
+        username = intent.getStringExtra("username") ?: return
 
         // Initialize views
         txtHourVal = findViewById(R.id.txtNewQuestionHourVal)
@@ -51,13 +51,19 @@ class HomeActivity : AppCompatActivity() {
         startButton.setOnClickListener {
             val intent = Intent(this, StartActivity::class.java)
             intent.putExtra("username", username)
-            intent.putExtra("avatarResId", avatarResId)
             startActivity(intent)
         }
 
         val historyButton = findViewById<Button>(R.id.btnHistory)
         historyButton.setOnClickListener {
             val intent = Intent(this, HistoryActivity::class.java)
+            intent.putExtra("username", username)
+            startActivity(intent)
+        }
+
+        val preferencesButton = findViewById<Button>(R.id.btnPreferences)
+        preferencesButton.setOnClickListener {
+            val intent = Intent(this, PreferencesActivity::class.java)
             intent.putExtra("username", username)
             startActivity(intent)
         }
