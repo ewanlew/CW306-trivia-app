@@ -94,8 +94,8 @@
     <string name="preferencesTitle">Preferences</string>
     <string name="triviaSettings">Trivia Settings</string>
     <string name="pushNotifications">Push Notifications</string>
-    <string name="disabled">Disabled</string>
-    <string name="enabled">Enabled</string>
+    <string name="disabledText">Disabled</string>
+    <string name="enabledText">Enabled</string>
     <string name="quizResetTime">Quiz Reset Time</string>
     <string name="editQuizTime">Edit Quiz Time</string>
     <string name="accountSettings">Account Settings</string>
@@ -103,5 +103,10 @@
     <string name="resetAccount">Reset Account</string>
     <string name="deleteAccount">Delete Account</string>
     <string name="toolbarBackButton">Navigate Back</string>
+
+    <!-- Notifs -->
+    <string name="notification_title">Trivia Time!</string>
+    <string name="notification_text">Your Trivia just reset! Play now to earn gems!</string>
+
 
 </resources>
