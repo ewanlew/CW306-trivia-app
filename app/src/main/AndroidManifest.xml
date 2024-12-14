@@ -26,6 +26,7 @@
         <activity android:name=".activities.HomeActivity"/>
         <activity android:name=".activities.StartActivity"/>
         <activity android:name=".activities.TriviaActivity"/>
+        <activity android:name=".activities.HistoryActivity"/>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

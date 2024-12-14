@@ -55,6 +55,13 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val historyButton = findViewById<Button>(R.id.btnHistory)
+        historyButton.setOnClickListener {
+            val intent = Intent(this, HistoryActivity::class.java)
+            intent.putExtra("username", username)
+            startActivity(intent)
+        }
+
         // Start the countdown timer
         startCountdownTimer(username)
     }
@@ -88,7 +95,7 @@ class HomeActivity : AppCompatActivity() {
             }
         })
     }
-    
+
     private fun parseTimeToMillis(time: String): Long {
         val parts = time.split(":").map { it.toIntOrNull() ?: 0 }
         val calendar = Calendar.getInstance().apply {
