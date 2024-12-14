@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var userAdapter: UserAdapter
     private val userList = mutableListOf<User>()
-    private val DEFAULT_AVATAR_RES_ID = R.drawable.avi_default
+    private val defaultAvatarResId = R.drawable.avi_default
     private val gson = Gson()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,17 +77,17 @@ class MainActivity : AppCompatActivity() {
                 val userProfile = UserProfile(
                     username = username,
                     password = password,
-                    avatarResId = DEFAULT_AVATAR_RES_ID,
+                    avatarResId = defaultAvatarResId,
                     streak = 0,
                     gems = 0,
                     hardcoreUnlocked = false,
                     gameHistory = mutableListOf(),
-                    unlockedAvatars = mutableListOf(DEFAULT_AVATAR_RES_ID),
+                    unlockedAvatars = mutableListOf(defaultAvatarResId),
                     pushNotificationsEnabled = false,
                     triviaResetTime = "12:00 PM"
                 )
                 saveUserProfile(userProfile)
-                userList.add(User(username, DEFAULT_AVATAR_RES_ID))
+                userList.add(User(username, defaultAvatarResId))
                 userAdapter.notifyItemInserted(userList.size - 1)
                 dialog.dismiss()
             } else {
@@ -123,7 +123,7 @@ class MainActivity : AppCompatActivity() {
     private fun loadUserProfile(username: String): UserProfile? {
         val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
         val password = sharedPref.getString("$username:password", null) ?: return null
-        val avatarResId = sharedPref.getInt("$username:avatar", DEFAULT_AVATAR_RES_ID)
+        val avatarResId = sharedPref.getInt("$username:avatar", defaultAvatarResId)
         val streak = sharedPref.getInt("$username:streak", 0)
         val gems = sharedPref.getInt("$username:gems", 0)
         val hardcoreUnlocked = sharedPref.getBoolean("$username:hardcoreUnlocked", false)
