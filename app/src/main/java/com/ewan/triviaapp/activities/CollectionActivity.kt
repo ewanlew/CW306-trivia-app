@@ -11,18 +11,21 @@ import com.ewan.triviaapp.adapters.AvatarAdapter
 import com.ewan.triviaapp.models.Avatar
 
 class CollectionActivity : AppCompatActivity() {
+
+    private lateinit var username: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.acitvity_collection)
 
+        username = intent.getStringExtra("username") ?: ""
+
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewAvatars)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Fetch avatar items
         val avatarItems = fetchAvatars(this)
 
-        // Set up adapter
-        recyclerView.adapter = AvatarAdapter(avatarItems)
+        recyclerView.adapter = AvatarAdapter(avatarItems, this, username)
     }
 
     private fun fetchAvatars(context: Context): List<Avatar> {
@@ -39,11 +42,6 @@ class CollectionActivity : AppCompatActivity() {
                 avatarItems.add(Avatar(resId, displayName))
             }
         }
-
-        if (avatarItems.isEmpty()) {
-            Toast.makeText(this, "No avatars found!", Toast.LENGTH_SHORT).show()
-        }
-
         return avatarItems
     }
 }

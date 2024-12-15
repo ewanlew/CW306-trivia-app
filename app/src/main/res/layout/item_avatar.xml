@@ -43,7 +43,7 @@
         <Button
             android:id="@+id/btnBuy"
             style="@style/Widget.AppCompat.Button"
-            android:layout_width="48dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@null"

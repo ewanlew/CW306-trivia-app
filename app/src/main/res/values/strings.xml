@@ -112,8 +112,11 @@
     <string name="purchasePrice">Purchase: %1$d💎</string>
     <string name="buy">Buy</string>
     <string name="equip">Equip</string>
+    <string name="inUse">In Use</string>
+    <string name="avatarPrice">200 💎</string>
     <string name="justPrice">$1%d💎</string>
     <string name="unlocked">Unlocked</string>
+    <string name="notEnoughGems">Not enough gems!</string>
 
     <string name="avatars">Avatars</string>
     <string name="avi_default">Default</string>
