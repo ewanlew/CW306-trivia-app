@@ -185,6 +185,7 @@
                             android:fontFamily="@font/alexandria" />
 
                         <TextView
+                            android:id="@+id/tvEditUsername"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/username"
@@ -211,6 +212,7 @@
                             android:fontFamily="@font/alexandria" />
 
                         <TextView
+                            android:id="@+id/tvEditPassword"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/hiddenPassword"
