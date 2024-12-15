@@ -53,6 +53,10 @@ class StartActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnEasy).setOnClickListener { showQuizOptionsDialog("easy") }
         findViewById<Button>(R.id.btnNormal).setOnClickListener { showQuizOptionsDialog("medium") }
         findViewById<Button>(R.id.btnHard).setOnClickListener { showQuizOptionsDialog("hard") }
+        findViewById<Button>(R.id.btnCreateCustom).setOnClickListener{
+            val intent = Intent(this, CreateTriviaActivity::class.java)
+            startActivity(intent)
+        }
 
         val hardcoreButton = findViewById<Button>(R.id.btnHardcore)
         val hardcoreDescription = findViewById<TextView>(R.id.txtHardcoreDescription)
