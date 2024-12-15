@@ -9,7 +9,8 @@
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/username"
+        android:hint="@string/usernameHint"
+        android:fontFamily="@font/alexandria"
         android:inputType="textPersonName" />
 
     <EditText
@@ -18,6 +19,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/password"
         android:inputType="textPassword"
+        android:fontFamily="@font/alexandria"
         android:layout_marginTop="8dp" />
 
     <Button
@@ -25,5 +27,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:fontFamily="@font/alexandria_bold"
         android:text="@string/save" />
 </LinearLayout>

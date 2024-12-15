@@ -216,9 +216,22 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/hiddenPassword"
+                            android:letterSpacing="0.25"
                             android:textSize="16sp"
                             android:textColor="#888888"
-                            android:fontFamily="@font/alexandria" />
+                            android:paddingEnd="12dp"
+                            android:fontFamily="@font/alexandria_bold" />
+                        <ImageButton
+                            android:id="@+id/btnEditPassword"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/editQuizTime"
+                            android:src="@drawable/ic_edit"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:elevation="4dp"
+                            app:tint="@color/black" />
 
                     </LinearLayout>
 
@@ -230,20 +243,6 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:paddingBottom="8dp">
-
-                    <Button
-                        android:id="@+id/btnResetAccount"
-                        style="@style/Widget.MaterialComponents.Button"
-                        android:layout_width="110dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/resetAccount" />
-
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.2" />
-
                     <Button
                         android:id="@+id/btnDeleteAccount"
                         style="@style/Widget.MaterialComponents.Button"

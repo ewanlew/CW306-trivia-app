@@ -3,9 +3,12 @@ package com.ewan.triviaapp.activities
 import android.app.TimePickerDialog
 import android.content.Context
 import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import com.ewan.triviaapp.R
@@ -21,6 +24,7 @@ class PreferencesActivity : AppCompatActivity() {
     private lateinit var editTimeButton: ImageButton
     private lateinit var notificationHelper: NotificationHelper
     private lateinit var username: String
+    private lateinit var resetPasswordButton: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,10 +35,10 @@ class PreferencesActivity : AppCompatActivity() {
         resetTimeText = findViewById(R.id.tvQuizResetTime)
         editTimeButton = findViewById(R.id.btnEditTime)
         tvUsername = findViewById(R.id.tvEditUsername)
+        resetPasswordButton = findViewById(R.id.btnEditPassword)
 
         username = intent.getStringExtra("username") ?: return
         tvUsername.text = username
-
 
         notificationHelper = NotificationHelper(this)
 
@@ -48,6 +52,41 @@ class PreferencesActivity : AppCompatActivity() {
         editTimeButton.setOnClickListener {
             openTimePicker()
         }
+
+        resetPasswordButton.setOnClickListener {
+            openResetPasswordDialog()
+        }
+    }
+
+    private fun openResetPasswordDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_reset_password, null)
+        val passwordInput = dialogView.findViewById<EditText>(R.id.etNewPassword)
+
+        val dialog = AlertDialog.Builder(this)
+            .setTitle("Reset Password")
+            .setView(dialogView)
+            .setPositiveButton("Confirm") { _, _ ->
+                val newPassword = passwordInput.text.toString().trim()
+                if (newPassword.isNotEmpty()) {
+                    saveNewPassword(newPassword)
+                    Toast.makeText(this, "Password updated successfully!", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "Password cannot be empty!", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+
+        dialog.show()
+    }
+
+    private fun saveNewPassword(newPassword: String) {
+        val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        editor.putString("$username:password", newPassword)
+        editor.apply()
     }
 
     private fun loadUserPreferences() {
