@@ -135,6 +135,9 @@
     <string name="pets">Pets</string>
     <string name="comingSoon">Coming Soon</string>
 
+    <!-- Placeholder -->
+    <string name="placeholderTitle">Placeholder Title</string>
+
 
 
 </resources>

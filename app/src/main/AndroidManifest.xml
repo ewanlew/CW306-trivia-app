@@ -43,6 +43,7 @@
         <activity android:name=".activities.PreferencesActivity"/>
         <activity android:name=".activities.CollectionActivity"/>
         <activity android:name=".activities.CreateTriviaActivity"/>
+        <activity android:name=".activities.CustomTriviaActivity"/>
         <receiver android:name=".notifications.NotificationReceiver" android:exported="true"/>
 
         <meta-data

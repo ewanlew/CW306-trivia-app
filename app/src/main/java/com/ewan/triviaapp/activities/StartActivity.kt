@@ -2,11 +2,15 @@ package com.ewan.triviaapp.activities
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.util.Log
 import android.widget.Button
 import android.widget.RadioGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -56,6 +60,9 @@ class StartActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnCreateCustom).setOnClickListener{
             val intent = Intent(this, CreateTriviaActivity::class.java)
             startActivity(intent)
+        }
+        findViewById<Button>(R.id.btnPlayCustom).setOnClickListener{
+            openFilePicker()
         }
 
         val hardcoreButton = findViewById<Button>(R.id.btnHardcore)
@@ -239,5 +246,44 @@ class StartActivity : AppCompatActivity() {
         txtStreak.text = getString(R.string.streakShowcase, streak)
         txtGems.text = getString(R.string.gemsShowcase, gems)
     }
+
+    private val filePickerLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            if (uri != null) {
+                handleFileSelection(uri)
+            } else {
+                Toast.makeText(this, "No file selected.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    private fun openFilePicker() {
+        filePickerLauncher.launch("application/json") // Opens file picker for JSON files
+    }
+
+    private fun handleFileSelection(uri: Uri) {
+        // Get file name for user feedback
+        val fileName = getFileName(uri)
+        if (fileName != null) {
+            Toast.makeText(this, "Selected file: $fileName", Toast.LENGTH_SHORT).show()
+        }
+
+        // Pass the file URI to CustomTriviaActivity
+        val intent = Intent(this, CustomTriviaActivity::class.java).apply {
+            putExtra("fileUri", uri.toString())
+            putExtra("username", username)
+        }
+        startActivity(intent)
+    }
+
+    private fun getFileName(uri: Uri): String? {
+        val cursor = contentResolver.query(uri, null, null, null, null)
+        cursor?.use {
+            if (it.moveToFirst()) {
+                return it.getString(it.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME))
+            }
+        }
+        return null
+    }
+
 
 }
