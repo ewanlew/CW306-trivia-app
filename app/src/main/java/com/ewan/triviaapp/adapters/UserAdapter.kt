@@ -15,17 +15,26 @@ class UserAdapter(
     private val onUserSelected: (User) -> Unit
 ) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
+    /**
+     * ViewHolder class for the user items
+     */
     class UserViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val usernameText: TextView = view.findViewById(R.id.tvUsername)
         val avatarImage: ImageView = view.findViewById(R.id.imgAvatar)
     }
 
+    /**
+     * Create the ViewHolder
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_user, parent, false)
         return UserViewHolder(view)
     }
 
+    /**
+     * Bind the data to the ViewHolder
+     */
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val user = userList[position]
         holder.usernameText.text = user.username
@@ -39,12 +48,12 @@ class UserAdapter(
                 "ImageView dimensions (after bind) - Width: ${holder.avatarImage.width}, Height: ${holder.avatarImage.height}"
             )
         }
-
         holder.view.setOnClickListener { onUserSelected(user) }
     }
-
-
-
+    
+    /**
+     * Return the number of users
+     */
     override fun getItemCount(): Int = userList.size
 }
 

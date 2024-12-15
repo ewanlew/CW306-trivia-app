@@ -18,17 +18,26 @@ class CategoryAdapter(
 
     private var selectedPosition: Int = -1
 
+    /**
+     * ViewHolder class for the category items
+     */
     class CategoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val radioButton: RadioButton = view.findViewById(R.id.rbCategory)
         val emojiText: TextView = view.findViewById(R.id.tvEmoji)
     }
 
+    /**
+     * Create the ViewHolder
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_category, parent, false)
         return CategoryViewHolder(view)
     }
 
+    /**
+     * Bind the data to the ViewHolder
+     */
     override fun onBindViewHolder(holder: CategoryViewHolder, @SuppressLint("RecyclerView") position: Int) {
         val category = categories[position]
         holder.radioButton.text = category.name

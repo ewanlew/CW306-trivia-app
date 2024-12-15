@@ -89,6 +89,9 @@ class StartActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Load the user profile
+     */
     private fun loadUserProfile(username: String) {
         val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
         val userProfileJson = sharedPref.getString("$username:profile", null)
@@ -100,6 +103,9 @@ class StartActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Show the quiz options dialog
+     */
     private fun showQuizOptionsDialog(difficulty: String) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_quiz_options, null)
         val rgQuestionType = dialogView.findViewById<RadioGroup>(R.id.rgQuestionType)
@@ -120,6 +126,9 @@ class StartActivity : AppCompatActivity() {
             .setView(dialogView)
             .create()
 
+        /**
+         * Set the click listener for the confirm button
+         */
         btnConfirm.setOnClickListener {
             val selectedQuestionType = when (rgQuestionType.checkedRadioButtonId) {
                 R.id.rbTrueFalse -> "boolean"
@@ -142,6 +151,9 @@ class StartActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    /**
+     * Show the hardcore dialog
+     */
     private fun showHardcoreDialog() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_hardcore_options, null)
         val rvCategories = dialogView.findViewById<RecyclerView>(R.id.rvCategories)
@@ -174,6 +186,9 @@ class StartActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    /**
+     * Fetch the questions from the API
+     */
     private fun fetchQuestions(
         amount: Int,
         category: Int,
@@ -181,6 +196,9 @@ class StartActivity : AppCompatActivity() {
         type: String,
         hardcoreMode: Boolean = false
     ) {
+        /**
+         * Make the API call
+         */
         TriviaApiService.api.getQuestions(amount, category, difficulty, type)
             .enqueue(object : Callback<TriviaResponse> {
                 override fun onResponse(call: Call<TriviaResponse>, response: Response<TriviaResponse>) {
@@ -208,6 +226,9 @@ class StartActivity : AppCompatActivity() {
             })
     }
 
+    /**
+     * Get the list of categories
+     */
     private fun getCategories(): List<TriviaCategory> {
         return listOf(
             TriviaCategory("General Knowledge", "\uD83C\uDF10"),
@@ -237,27 +258,31 @@ class StartActivity : AppCompatActivity() {
         )
     }
 
-
+    /**
+     * Updates streak and gems when activity is resumed
+     */
     override fun onResume() {
         super.onResume()
-        // Update streak and gems when the activity is resumed
         updateStreakAndGems()
     }
 
+    /**
+     * Updates the streak and gems
+     */
     private fun updateStreakAndGems() {
-        // Retrieve username from Intent
         val username = intent.getStringExtra("username") ?: return
 
-        // Retrieve user data from SharedPreferences
         val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
         val streak = sharedPref.getInt("$username:currentStreak", 0)
         val gems = sharedPref.getInt("$username:currentGems", 0)
 
-        // Display the streak and gems
         txtStreak.text = getString(R.string.streakShowcase, streak)
         txtGems.text = getString(R.string.gemsShowcase, gems)
     }
 
+    /**
+     * Open the file picker
+     */
     private val filePickerLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             if (uri != null) {
@@ -267,12 +292,17 @@ class StartActivity : AppCompatActivity() {
             }
         }
 
+    /**
+     * Open the file picker
+     */
     private fun openFilePicker() {
-        filePickerLauncher.launch("application/json") // Opens file picker for JSON files
+        filePickerLauncher.launch("application/json")
     }
 
+    /**
+     * Handle the file selection
+     */
     private fun handleFileSelection(uri: Uri) {
-        // Get file name for user feedback
         val fileName = getFileName(uri)
         if (fileName != null) {
             Toast.makeText(this, "Selected file: $fileName", Toast.LENGTH_SHORT).show()
@@ -286,6 +316,9 @@ class StartActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    /**
+     * Get the file name from the URI
+     */
     private fun getFileName(uri: Uri): String? {
         val cursor = contentResolver.query(uri, null, null, null, null)
         cursor?.use {

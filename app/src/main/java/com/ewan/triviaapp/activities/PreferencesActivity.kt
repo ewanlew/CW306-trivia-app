@@ -68,10 +68,16 @@ class PreferencesActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Open the reset password dialog
+     */
     private fun openResetPasswordDialog() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_reset_password, null)
         val passwordInput = dialogView.findViewById<EditText>(R.id.etNewPassword)
 
+        /**
+         * Create the dialog and set the click listener for the positive button
+         */
         val dialog = AlertDialog.Builder(this)
             .setTitle("Reset Password")
             .setView(dialogView)
@@ -92,6 +98,9 @@ class PreferencesActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    /**
+     * Save the new password
+     */
     private fun saveNewPassword(newPassword: String) {
         val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
@@ -99,6 +108,9 @@ class PreferencesActivity : AppCompatActivity() {
         editor.apply()
     }
 
+    /**
+     * Load the user preferences
+     */
     private fun loadUserPreferences() {
         val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
         val isPushNotificationsEnabled = sharedPref.getBoolean("$username:pushNotificationsEnabled", false)
@@ -108,6 +120,9 @@ class PreferencesActivity : AppCompatActivity() {
         resetTimeText.text = resetTime
     }
 
+    /**
+     * Handle the notification toggle
+     */
     private fun handleNotificationToggle(isEnabled: Boolean) {
         val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
@@ -125,6 +140,9 @@ class PreferencesActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Open the time picker
+     */
     private fun openTimePicker() {
         val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
         val currentResetTime = sharedPref.getString("$username:triviaResetTime", "12:00 PM") ?: "12:00 PM"
@@ -145,6 +163,9 @@ class PreferencesActivity : AppCompatActivity() {
         timePickerDialog.show()
     }
 
+    /**
+     * Save the reset time
+     */
     private fun saveResetTime(time: String) {
         val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
@@ -152,6 +173,9 @@ class PreferencesActivity : AppCompatActivity() {
         editor.apply()
     }
 
+    /**
+     * Schedule the notification
+     */
     private fun scheduleNotification() {
         val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
         val resetTime = sharedPref.getString("$username:triviaResetTime", "12:00 PM") ?: "12:00 PM"
@@ -173,11 +197,16 @@ class PreferencesActivity : AppCompatActivity() {
         notificationHelper.scheduleNotification(this, notificationTitle, notificationBody, calendar.timeInMillis)
     }
 
-
+    /**
+     * Cancel the notifications
+     */
     private fun cancelNotifications() {
         notificationHelper.cancelAllNotifications()
     }
 
+    /**
+     * Update the notification text
+     */
     private fun updateNotificationText() {
         val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
         val isPushNotificationsEnabled = sharedPref.getBoolean("$username:pushNotificationsEnabled", false)
@@ -189,6 +218,9 @@ class PreferencesActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Parse the time to hour and minute
+     */
     private fun parseTimeToHourMinute(time: String): Pair<Int, Int> {
         val isPM = time.contains("PM")
         val parts = time.replace("AM", "").replace("PM", "").trim().split(":")

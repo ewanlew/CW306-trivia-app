@@ -91,6 +91,9 @@ class CreateTriviaActivity : AppCompatActivity() {
         updateQuestionView()
     }
 
+    /**
+     * Save the current question and move to the next one
+     */
     private fun saveAndNextQuestion() {
         if (saveCurrentQuestion()) {
             currentQuestionIndex++
@@ -101,6 +104,9 @@ class CreateTriviaActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Go to the previous question
+     */
     private fun goToPreviousQuestion() {
         if (currentQuestionIndex > 0) {
             currentQuestionIndex--
@@ -108,6 +114,9 @@ class CreateTriviaActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Update the question view based on the current question index
+     */
     private fun updateQuestionView() {
         val isFirstQuestion = currentQuestionIndex == 0
         btnPrevious.visibility = if (isFirstQuestion) View.INVISIBLE else View.VISIBLE
@@ -126,6 +135,9 @@ class CreateTriviaActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Save the current question and return true if successful
+     */
     private fun saveCurrentQuestion(): Boolean {
         val title = editTxtQuestionTitle.text.toString().trim()
         if (title.isEmpty()) {
@@ -158,6 +170,9 @@ class CreateTriviaActivity : AppCompatActivity() {
         return true
     }
 
+    /**
+     * Get the multiple-choice options from the EditText fields
+     */
     private fun getMultipleChoiceOptions(): List<String> {
         return listOf(
             editTxtOption1.text.toString().trim(),
@@ -167,6 +182,9 @@ class CreateTriviaActivity : AppCompatActivity() {
         )
     }
 
+    /**
+     * Get the correct option index based on the selected RadioButton
+     */
     private fun getCorrectOptionIndex(): Int {
         return when {
             rdoOption1.isChecked -> 0
@@ -177,6 +195,9 @@ class CreateTriviaActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Set up the view for the True/False question type
+     */
     private fun setupTrueFalseView() {
         editTxtOption1.visibility = View.GONE
         editTxtOption2.visibility = View.GONE
@@ -191,6 +212,9 @@ class CreateTriviaActivity : AppCompatActivity() {
         rdoOption2.text = getString(R.string.falseOption)
     }
 
+    /**
+     * Set up the view for the Multiple-Choice question type
+     */
     private fun setupMultipleChoiceView() {
         linearOptionsContainer.visibility = View.VISIBLE
         rdoGrpAnswers.clearCheck()
@@ -211,6 +235,9 @@ class CreateTriviaActivity : AppCompatActivity() {
         rdoOption4.visibility = View.VISIBLE
     }
 
+    /**
+     * Update the multiple-choice options in the EditText fields
+     */
     private fun updateMultipleChoiceOptions(options: List<String>) {
         editTxtOption1.setText(options.getOrNull(0) ?: "")
         editTxtOption2.setText(options.getOrNull(1) ?: "")
@@ -218,6 +245,9 @@ class CreateTriviaActivity : AppCompatActivity() {
         editTxtOption4.setText(options.getOrNull(3) ?: "")
     }
 
+    /**
+     * Save the trivia to a JSON file
+     */
     private fun saveTrivia() {
         if (!saveCurrentQuestion()) return
 
@@ -227,7 +257,9 @@ class CreateTriviaActivity : AppCompatActivity() {
             return
         }
 
-        // Save the trivia as JSON
+        /**
+         * Create a JSON object representing the trivia
+         */
         val triviaJson = JSONObject().apply {
             put("response_code", 0)
             put("results", JSONArray().apply {
@@ -248,13 +280,14 @@ class CreateTriviaActivity : AppCompatActivity() {
             })
         }
 
-        // Define the "Trivia" directory inside the Documents folder
+        /**
+         * Save the JSON to a file
+         */
         val triviaDir = File(getExternalFilesDir(null), "Trivia")
         if (!triviaDir.exists()) {
             triviaDir.mkdirs()
         }
 
-        // Save the trivia file in the "Trivia" directory
         val file = File(triviaDir, "$triviaName.json")
         file.writeText(triviaJson.toString())
         Log.d("CreateTriviaActivity", "Trivia JSON saved to: ${file.absolutePath}")
@@ -265,6 +298,9 @@ class CreateTriviaActivity : AppCompatActivity() {
     }
 
 
+    /**
+     * Show a dialog to share the trivia
+     */
     private fun showShareDialog(file: File) {
         val dialog = android.app.AlertDialog.Builder(this)
             .setTitle("Share Trivia")
@@ -282,10 +318,16 @@ class CreateTriviaActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    /**
+     * Finish the activity and show a toast message
+     */
     private fun finishActivityWithToast() {
         finish()
     }
 
+    /**
+     * Share the trivia file
+     */
     private fun shareTrivia(file: File) {
         try {
             val fileUri = androidx.core.content.FileProvider.getUriForFile(
@@ -307,8 +349,9 @@ class CreateTriviaActivity : AppCompatActivity() {
         }
     }
 
-
-
+    /**
+     * Represents a question in the trivia
+     */
     data class Question(
         var title: String = "",
         var isMultipleChoice: Boolean = true,

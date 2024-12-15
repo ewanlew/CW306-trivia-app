@@ -17,6 +17,9 @@ class NotificationHelper(base: Context) : ContextWrapper(base) {
 
     private var notifManager: NotificationManager? = null
 
+    /**
+     * Get the notification manager
+     */
     private val manager: NotificationManager?
         get() {
             if (notifManager == null) {
@@ -29,6 +32,9 @@ class NotificationHelper(base: Context) : ContextWrapper(base) {
         createChannels()
     }
 
+    /**
+     * Create the notification channel
+     */
     fun createChannels() {
         val notificationChannel = NotificationChannel(
             CHANNEL_ID,
@@ -43,6 +49,9 @@ class NotificationHelper(base: Context) : ContextWrapper(base) {
         manager?.createNotificationChannel(notificationChannel)
     }
 
+    /**
+     * Create the notification
+     */
     fun getNotification(title: String, body: String): NotificationCompat.Builder {
         return NotificationCompat.Builder(applicationContext, CHANNEL_ID)
             .setContentTitle(title)
@@ -51,6 +60,9 @@ class NotificationHelper(base: Context) : ContextWrapper(base) {
             .setAutoCancel(true)
     }
 
+    /**
+     * Schedule the notification
+     */
     @SuppressLint("ScheduleExactAlarm")
     fun scheduleNotification(context: Context, title: String, body: String, triggerAtMillis: Long) {
         val intent = Intent(context, NotificationReceiver::class.java).apply {
@@ -68,10 +80,17 @@ class NotificationHelper(base: Context) : ContextWrapper(base) {
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent)
     }
 
+
+    /**
+     * Cancel the notification
+     */
     fun notify(id: Int, builder: NotificationCompat.Builder) {
         manager?.notify(id, builder.build())
     }
 
+    /**
+     * Cancel all notifications
+     */
     fun cancelAllNotifications() {
         manager?.cancelAll()
     }

@@ -14,12 +14,18 @@ import com.ewan.triviaapp.models.GameHistory
 class TriviaHistoryAdapter(private val triviaHistoryList: List<GameHistory>) :
     RecyclerView.Adapter<TriviaHistoryAdapter.TriviaHistoryViewHolder>() {
 
+    /**
+     * Create the ViewHolder
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TriviaHistoryViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_game, parent, false)
         return TriviaHistoryViewHolder(view)
     }
 
+    /**
+     * Bind the data to the ViewHolder
+     */
     override fun onBindViewHolder(holder: TriviaHistoryViewHolder, position: Int) {
         val gameHistory = triviaHistoryList[position]
         holder.tvGrade.text = gameHistory.grade
@@ -39,15 +45,19 @@ class TriviaHistoryAdapter(private val triviaHistoryList: List<GameHistory>) :
             "D" -> holder.tvGrade.setTextColor(Color.RED)
             "F" -> holder.tvGrade.setTextColor(Color.BLACK)
         }
-
-
         holder.bind(gameHistory)
     }
 
+    /**
+     * Return the number of items in the list
+     */
     override fun getItemCount(): Int {
         return triviaHistoryList.size
     }
 
+    /**
+     * ViewHolder class for the trivia history items
+     */
     class TriviaHistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvGrade: TextView = itemView.findViewById(R.id.tvGrade)
         val tvResult: TextView = itemView.findViewById(R.id.tvResult)

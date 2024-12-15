@@ -65,6 +65,10 @@ class CustomTriviaActivity : AppCompatActivity() {
         username = intent.getStringExtra("username") ?: return
 
         val fileUri = intent.getStringExtra("fileUri")
+
+        /**
+         * Read the JSON file from the provided URI
+         */
         if (fileUri != null) {
             val fileContent = readJsonFromUri(fileUri)
             if (fileContent != null) {
@@ -83,6 +87,9 @@ class CustomTriviaActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Read the JSON file from the provided URI
+     */
     private fun readJsonFromUri(fileUri: String): String? {
         return try {
             val uri = Uri.parse(fileUri)
@@ -94,6 +101,9 @@ class CustomTriviaActivity : AppCompatActivity() {
     }
 
 
+    /**
+     * Parse and load the questions from the JSON content
+     */
     private fun parseAndLoadQuestions(jsonContent: String) {
         try {
             val jsonObject = JSONObject(jsonContent)
@@ -117,6 +127,9 @@ class CustomTriviaActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Load the next question
+     */
     private fun loadQuestion() {
         if (currentQuestionIndex >= questions.size) {
             finishQuiz()
@@ -155,6 +168,9 @@ class CustomTriviaActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Show confetti animation
+     */
     private fun showConfetti() {
         konfettiView.start(
             Party(
@@ -176,6 +192,9 @@ class CustomTriviaActivity : AppCompatActivity() {
         )
     }
 
+    /**
+     * Checks if the answer is correct
+     */
     private fun checkAnswer() {
         val selectedOptionId = linLayAnswers.checkedRadioButtonId
         if (selectedOptionId == -1) {
@@ -196,12 +215,18 @@ class CustomTriviaActivity : AppCompatActivity() {
         loadQuestion()
     }
 
+    /**
+     * Finish the quiz
+     */
     private fun finishQuiz() {
         saveToHistory()
         Toast.makeText(this, "Trivia completed!", Toast.LENGTH_LONG).show()
         finish()
     }
 
+    /**
+     * Save the quiz history to SharedPreferences
+     */
     private fun saveToHistory() {
         val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
@@ -226,6 +251,9 @@ class CustomTriviaActivity : AppCompatActivity() {
         editor.apply()
     }
 
+    /**
+     * Calculate the grade based on the number of correct answers
+     */
     private fun calculateGrade(correctAnswers: Int, totalQuestions: Int): String {
         val percentage = (correctAnswers.toDouble() / totalQuestions) * 100
         return when {

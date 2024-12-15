@@ -71,7 +71,6 @@ class TriviaActivity : AppCompatActivity() {
         txtLivesCount = findViewById(R.id.txtLivesCount)
         konfettiView = findViewById(R.id.konfettiView)
 
-        // Retrieve data
         username = intent.getStringExtra("username") ?: return
         questions = intent.getParcelableArrayListExtra<TriviaQuestion>("questions") ?: listOf()
         val difficulty = intent.getStringExtra("difficulty") ?: "easy"
@@ -86,7 +85,7 @@ class TriviaActivity : AppCompatActivity() {
         }
 
         lives = if (isHardcoreMode) {
-            1 // Hardcore mode has exactly 1 life
+            1
         } else {
             calculateLives(questions.size)
         }
@@ -107,14 +106,23 @@ class TriviaActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Calculate the number of lives based on the number of questions
+     */
     private fun calculateLives(numQuestions: Int): Int {
         return ((numQuestions / 5) * 2).coerceAtLeast(2) // Lives are 2 per 5 questions, with a minimum of 2
     }
 
+    /**
+     * Update the lives display
+     */
     private fun updateLivesDisplay() {
         txtLivesCount.text = "x$lives"
     }
 
+    /**
+     * Show the confetti
+     */
     private fun showConfetti() {
         konfettiView.start(
             Party(
@@ -136,6 +144,9 @@ class TriviaActivity : AppCompatActivity() {
         )
     }
 
+    /**
+     * Loads the next question
+     */
     private fun loadQuestion() {
         if (currentQuestionIndex >= questions.size) {
             finishQuiz()
@@ -175,6 +186,9 @@ class TriviaActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Checks the answer
+     */
     private fun checkAnswer() {
         val selectedOptionId = linLayAnswers.checkedRadioButtonId
 
@@ -205,6 +219,9 @@ class TriviaActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Finish the quiz
+     */
     private fun finishQuiz() {
         val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
@@ -231,6 +248,10 @@ class TriviaActivity : AppCompatActivity() {
         Toast.makeText(this, "Quiz complete! Total gems earned: $gems", Toast.LENGTH_LONG).show()
         finish()
     }
+
+    /**
+     * Calculate the grade based on the number of correct answers
+     */
     private fun calculateGrade(correctAnswers: Int, totalQuestions: Int): String {
         val percentage = (correctAnswers.toDouble() / totalQuestions) * 100
         return when {
@@ -242,6 +263,9 @@ class TriviaActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Load the user profile from shared preferences
+     */
     fun loadUserProfileFromPrefs(username: String, sharedPref: SharedPreferences): UserProfile {
         val defaultGameHistory = mutableListOf<GameHistory>()
         val defaultUnlockedAvatars = mutableListOf<Int>()

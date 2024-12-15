@@ -59,6 +59,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Show the add user dialog
+     */
     private fun showAddUserDialog() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_add_user, null)
         val usernameInput = dialogView.findViewById<EditText>(R.id.etUsername)
@@ -97,6 +100,9 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    /**
+     * Save the user profile
+     */
     private fun saveUserProfile(userProfile: UserProfile) {
         val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
@@ -120,6 +126,9 @@ class MainActivity : AppCompatActivity() {
         Log.d("SaveUserProfile", "Saved profile for ${userProfile.username}")
     }
 
+    /**
+     * Load the user profile
+     */
     private fun loadUserProfile(username: String): UserProfile? {
         val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
         val password = sharedPref.getString("$username:password", null) ?: return null
@@ -158,6 +167,9 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    /**
+     * Load the users from SharedPreferences
+     */
     private fun loadUsers() {
         val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
         for (entry in sharedPref.all) {
@@ -172,6 +184,9 @@ class MainActivity : AppCompatActivity() {
         userAdapter.notifyDataSetChanged()
     }
 
+    /**
+     * Handle user selection
+     */
     private fun handleUserSelection(user: User) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_password_prompt, null)
         val passwordInput = dialogView.findViewById<EditText>(R.id.etPasswordPrompt)
@@ -196,6 +211,9 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    /**
+     * Navigate to the home activity
+     */
     private fun navigateToHome(userProfile: UserProfile) {
         val intent = Intent(this, HomeActivity::class.java)
         intent.putExtra("username", userProfile.username)
@@ -203,11 +221,17 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    /**
+     * Refresh the users when the activity is resumed
+     */
     override fun onResume() {
         super.onResume()
         refreshUsers()
     }
 
+    /**
+     * Refresh the users
+     */
     private fun refreshUsers() {
         userList.clear()
         loadUsers()

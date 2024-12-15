@@ -6,6 +6,9 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface TriviaApi {
+    /**
+     * Fetch trivia questions from the API
+     */
     @GET("api.php")
     fun getQuestions(
         @Query("amount") amount: Int,

@@ -23,6 +23,9 @@ class AvatarAdapter(
     private val sharedPref: SharedPreferences =
         context.getSharedPreferences("user_data", Context.MODE_PRIVATE)
 
+    /**
+     * ViewHolder class for the avatar items
+     */
     class AvatarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val avatarImage: ImageView = itemView.findViewById(R.id.imgAvatar)
         val avatarName: TextView = itemView.findViewById(R.id.tvAvatarName)
@@ -30,12 +33,18 @@ class AvatarAdapter(
         val actionButton: Button = itemView.findViewById(R.id.btnBuy)
     }
 
+    /**
+     * Create the ViewHolder
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AvatarViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_avatar, parent, false)
         return AvatarViewHolder(view)
     }
 
+    /**
+     * Bind the data to the ViewHolder
+     */
     override fun onBindViewHolder(holder: AvatarViewHolder, position: Int) {
         val avatar = avatars[position]
         holder.avatarImage.setImageResource(avatar.imageResId)
@@ -67,7 +76,6 @@ class AvatarAdapter(
             )
         }
 
-        // Handle button click actions
         holder.actionButton.setOnClickListener {
             when (holder.actionButton.text) {
                 "Buy" -> handleBuyAction(avatar, holder)
@@ -76,20 +84,23 @@ class AvatarAdapter(
         }
     }
 
+    /**
+     * Return the number of avatars
+     */
     override fun getItemCount(): Int {
         return avatars.size
     }
 
+    /**
+     * Handle the buy action
+     */
     private fun handleBuyAction(avatar: Avatar, holder: AvatarViewHolder) {
         val userGems = sharedPref.getInt("$username:currentGems", 0)
         if (userGems >= 200) {
-            // Deduct gems
             updateGems(userGems - 200)
 
-            // Unlock the avatar
             unlockAvatar(avatar.imageResId)
 
-            // Update UI
             holder.actionButton.text = context.getString(R.string.equip)
             holder.avatarPrice.text = context.getString(R.string.avatarPrice)
             holder.actionButton.setBackgroundColor(
@@ -100,18 +111,21 @@ class AvatarAdapter(
         }
     }
 
+    /**
+     * Handle the equip action
+     */
     private fun handleEquipAction(avatar: Avatar, holder: AvatarViewHolder) {
-        // Update the currently equipped avatar
         val userCurrentAvatar = sharedPref.getInt("$username:avatar", 0)
         if (userCurrentAvatar != avatar.imageResId) {
-            // Set the new avatar
             setCurrentAvatar(avatar.imageResId)
 
-            // Notify the adapter to refresh all items
             notifyDataSetChanged()
         }
     }
 
+    /**
+     * Get the list of unlocked avatars
+     */
     private fun getUnlockedAvatars(): MutableList<Int> {
         val unlockedAvatarsJson = sharedPref.getString("$username:unlockedAvatars", "[]")
         return unlockedAvatarsJson
@@ -122,6 +136,9 @@ class AvatarAdapter(
             ?: mutableListOf()
     }
 
+    /**
+     * Unlock an avatar
+     */
     private fun unlockAvatar(avatarResId: Int) {
         val unlockedAvatars = getUnlockedAvatars()
         if (!unlockedAvatars.contains(avatarResId)) {
@@ -132,6 +149,9 @@ class AvatarAdapter(
         }
     }
 
+    /**
+     * Update the number of gems
+     */
     private fun updateGems(newGems: Int) {
         val editor = sharedPref.edit()
         editor.putInt("$username:currentGems", newGems)
@@ -140,12 +160,18 @@ class AvatarAdapter(
         tvGems.text = context.getString(R.string.gemsShowcase, newGems)
     }
 
+    /**
+     * Set the current avatar
+     */
     private fun setCurrentAvatar(avatarResId: Int) {
         val editor = sharedPref.edit()
         editor.putInt("$username:avatar", avatarResId)
         editor.apply()
     }
 
+    /**
+     * Show a toast message
+     */
     private fun showToast(message: String) {
         android.widget.Toast.makeText(context, message, android.widget.Toast.LENGTH_SHORT).show()
     }

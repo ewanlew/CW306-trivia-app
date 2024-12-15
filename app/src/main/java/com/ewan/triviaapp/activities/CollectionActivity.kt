@@ -59,6 +59,9 @@ class CollectionActivity : AppCompatActivity() {
         recyclerView.adapter = AvatarAdapter(avatarItems, this, username, txtGems)
     }
 
+    /**
+     * Unlock hardcore mode if the user has enough gems
+     */
     private fun unlockHardcoreMode(sharedPref: SharedPreferences, currentGems: Int) {
         if (currentGems >= 1000) {
             val newGemCount = currentGems - 1000
@@ -75,6 +78,9 @@ class CollectionActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Update the state of the hardcore button based on whether it's unlocked or not
+     */
     private fun updateHardcoreButtonState(isUnlocked: Boolean) {
         btnBuyHardcore.isEnabled = !isUnlocked
         btnBuyHardcore.text = if (isUnlocked) getString(R.string.unlocked) else getString(R.string.purchaseHardcore)
@@ -83,10 +89,16 @@ class CollectionActivity : AppCompatActivity() {
         )
     }
 
+    /**
+     * Fetch the list of avatars from the drawable resources
+     */
     private fun fetchAvatars(context: Context): List<Avatar> {
         val avatarItems = mutableListOf<Avatar>()
         val drawableField = R.drawable::class.java.fields
 
+        /**
+         * Loop through the drawable fields to find the ones that start with "avi_"
+         */
         for (field in drawableField) {
             val name = field.name
             if (name.startsWith("avi_")) {

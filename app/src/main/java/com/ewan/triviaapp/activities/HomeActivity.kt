@@ -90,6 +90,9 @@ class HomeActivity : AppCompatActivity() {
         startCountdownTimer(username)
     }
 
+    /**
+     * Start the countdown timer
+     */
     private fun startCountdownTimer(username: String) {
         val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
         val resetTime = sharedPref.getString("$username:triviaResetTime", "12:00 PM") ?: "12:00 PM"
@@ -100,6 +103,9 @@ class HomeActivity : AppCompatActivity() {
 
         handler.removeCallbacksAndMessages(null)
 
+        /**
+         * Update the countdown every second
+         */
         handler.post(object : Runnable {
             override fun run() {
                 val currentTime = System.currentTimeMillis()
@@ -120,6 +126,9 @@ class HomeActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * Parse the time string to milliseconds
+     */
     private fun parseTimeToMillis(time: String): Long {
         val isPM = time.contains("PM", ignoreCase = true)
         val cleanedTime = time.replace("AM", "", ignoreCase = true)
@@ -148,6 +157,9 @@ class HomeActivity : AppCompatActivity() {
 
 
     @SuppressLint("DefaultLocale")
+    /**
+     * Update the countdown display
+     */
     private fun updateCountdownDisplay(timeRemaining: Long) {
         val hours = TimeUnit.MILLISECONDS.toHours(timeRemaining)
         val minutes = TimeUnit.MILLISECONDS.toMinutes(timeRemaining) % 60
@@ -159,25 +171,36 @@ class HomeActivity : AppCompatActivity() {
     }
 
     @SuppressLint("SetTextI18n")
+    /**
+     * Resets the countdown
+     */
     private fun resetCountdown() {
         txtHourVal.text = "00"
         txtMinVal.text = "00"
         txtSecVal.text = "00"
     }
 
+    /**
+     * Stop the handler when the activity is destroyed
+     */
     override fun onDestroy() {
         super.onDestroy()
         handler.removeCallbacksAndMessages(null) // Stop the handler when activity is destroyed
     }
 
+    /**
+     * Update the streak and gems when the activity is resumed
+     */
     override fun onResume() {
         super.onResume()
-        // Update streak and gems when the activity is resumed
         updateStreakAndGems()
 
         reloadResetTimeAndRestartTimer()
     }
 
+    /**
+     * Reload the reset time and restart the timer
+     */
     private fun reloadResetTimeAndRestartTimer() {
         val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
         val resetTime = sharedPref.getString("$username:triviaResetTime", "12:00 PM") ?: "12:00 PM"
@@ -187,16 +210,16 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
+    /**
+     * Updates the streak and gems when activity is resumed
+     */
     private fun updateStreakAndGems() {
-        // Retrieve username from Intent
         val username = intent.getStringExtra("username") ?: return
 
-        // Retrieve user data from SharedPreferences
         val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
         val streak = sharedPref.getInt("$username:currentStreak", 0)
         val gems = sharedPref.getInt("$username:currentGems", 0)
 
-        // Display the streak and gems
         txtStreak.text = getString(R.string.streakShowcase, streak)
         txtGems.text = getString(R.string.gemsShowcase, gems)
     }
