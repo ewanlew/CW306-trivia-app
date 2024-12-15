@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:hint="@string/usernameHint"
         android:fontFamily="@font/alexandria"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/etPassword"
@@ -20,7 +21,8 @@
         android:hint="@string/password"
         android:inputType="textPassword"
         android:fontFamily="@font/alexandria"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/btnSaveUser"

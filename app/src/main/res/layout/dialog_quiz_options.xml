@@ -13,7 +13,8 @@
             android:layout_height="wrap_content"
             android:text="@string/questionType"
             android:textSize="18sp"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/alexandria" />
 
         <RadioGroup
             android:id="@+id/rgQuestionType"
@@ -23,11 +24,13 @@
                 android:id="@+id/rbTrueFalse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/alexandria"
                 android:text="@string/trueFalse" />
             <RadioButton
                 android:id="@+id/rbMultipleChoice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/alexandria"
                 android:text="@string/multipleChoice" />
         </RadioGroup>
 
@@ -36,12 +39,14 @@
             android:layout_height="wrap_content"
             android:text="@string/numberOfQuestions"
             android:textSize="18sp"
+            android:fontFamily="@font/alexandria"
             android:layout_marginTop="16dp" />
 
         <EditText
             android:id="@+id/etNumberOfQuestions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/alexandria"
             android:inputType="number"
             android:hint="@string/numberOfQuestionsHint" />
 
@@ -50,6 +55,7 @@
             android:layout_height="wrap_content"
             android:text="@string/selectCategory"
             android:textSize="18sp"
+            android:fontFamily="@font/alexandria"
             android:layout_marginTop="16dp" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -62,6 +68,7 @@
             android:id="@+id/btnConfirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/alexandria"
             android:text="@string/confirm"
             android:layout_marginTop="16dp" />
     </LinearLayout>
