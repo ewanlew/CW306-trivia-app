@@ -69,6 +69,13 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val collectionButton = findViewById<Button>(R.id.btnCollection)
+        collectionButton.setOnClickListener {
+            val intent = Intent(this, CollectionActivity::class.java)
+            intent.putExtra("username", username)
+            startActivity(intent)
+        }
+
         // Start the countdown timer
         startCountdownTimer(username)
     }

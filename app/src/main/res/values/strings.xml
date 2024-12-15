@@ -108,5 +108,26 @@
     <string name="notification_title">Trivia Time!</string>
     <string name="notification_text">Your Trivia just reset! Play now to earn gems!</string>
 
+    <!-- Colletion -->
+    <string name="purchasePrice">Purchase: %1$d💎</string>
+    <string name="buy">Buy</string>
+    <string name="equip">Equip</string>
+    <string name="justPrice">$1%d💎</string>
+    <string name="unlocked">Unlocked</string>
+
+    <string name="avatars">Avatars</string>
+    <string name="avi_default">Default</string>
+    <string name="avi_ewan">Ewan</string>
+    <string name="avi_glorp">Glorp</string>
+    <string name="avi_jolly">Jolly</string>
+    <string name="avi_sour">Sour</string>
+    <string name="avi_spooky">Spooky</string>
+    <string name="avi_turnt">Turnt</string>
+
+    <string name="themes">Themes</string>
+    <string name="pets">Pets</string>
+    <string name="comingSoon">Coming Soon</string>
+
+
 
 </resources>
