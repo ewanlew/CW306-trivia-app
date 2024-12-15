@@ -119,6 +119,7 @@
     <string name="justPrice">$1%d💎</string>
     <string name="unlocked">Unlocked</string>
     <string name="notEnoughGems">Not enough gems!</string>
+    <string name="unlockedHardcore">Hardcore mode unlocked!</string>
 
     <string name="avatars">Avatars</string>
     <string name="avi_default">Default</string>

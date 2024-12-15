@@ -65,6 +65,7 @@ class StartActivity : AppCompatActivity() {
             openFilePicker()
         }
 
+        isHardcoreUnlocked = sharedPref.getBoolean("$username:hardcoreUnlocked", false)
         val hardcoreButton = findViewById<Button>(R.id.btnHardcore)
         val hardcoreDescription = findViewById<TextView>(R.id.txtHardcoreDescription)
 
