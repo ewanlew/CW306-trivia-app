@@ -108,13 +108,18 @@ class PreferencesActivity : AppCompatActivity() {
             set(Calendar.HOUR_OF_DAY, hour)
             set(Calendar.MINUTE, minute)
             set(Calendar.SECOND, 0)
+            if (timeInMillis < System.currentTimeMillis()) {
+                // If the time is already past, schedule for the next day
+                add(Calendar.DAY_OF_YEAR, 1)
+            }
         }
 
         val notificationTitle = "Trivia Reminder"
         val notificationBody = "It's time for your trivia challenge!"
 
-        notificationHelper.scheduleNotification(notificationTitle, notificationBody, calendar.timeInMillis)
+        notificationHelper.scheduleNotification(this, notificationTitle, notificationBody, calendar.timeInMillis)
     }
+
 
     private fun cancelNotifications() {
         notificationHelper.cancelAllNotifications()

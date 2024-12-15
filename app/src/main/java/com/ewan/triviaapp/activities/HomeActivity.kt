@@ -103,15 +103,31 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun parseTimeToMillis(time: String): Long {
-        val parts = time.split(":").map { it.toIntOrNull() ?: 0 }
+        val isPM = time.contains("PM", ignoreCase = true)
+        val cleanedTime = time.replace("AM", "", ignoreCase = true)
+            .replace("PM", "", ignoreCase = true)
+            .trim()
+
+        val parts = cleanedTime.split(":").map { it.toIntOrNull() ?: 0 }
+        var hour = parts[0]
+        val minute = parts.getOrElse(1) { 0 }
+
+        if (isPM && hour < 12) {
+            hour += 12
+        }
+        if (!isPM && hour == 12) {
+            hour = 0
+        }
+
         val calendar = Calendar.getInstance().apply {
-            set(Calendar.HOUR_OF_DAY, parts[0])
-            set(Calendar.MINUTE, parts[1])
+            set(Calendar.HOUR_OF_DAY, hour)
+            set(Calendar.MINUTE, minute)
             set(Calendar.SECOND, 0)
             set(Calendar.MILLISECOND, 0)
         }
         return calendar.timeInMillis % TimeUnit.DAYS.toMillis(1)
     }
+
 
     private fun updateCountdownDisplay(timeRemaining: Long) {
         val hours = TimeUnit.MILLISECONDS.toHours(timeRemaining)
@@ -138,7 +154,18 @@ class HomeActivity : AppCompatActivity() {
         super.onResume()
         // Update streak and gems when the activity is resumed
         updateStreakAndGems()
+
+        reloadResetTimeAndRestartTimer()
     }
+
+    private fun reloadResetTimeAndRestartTimer() {
+        val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+        val resetTime = sharedPref.getString("$username:triviaResetTime", "12:00 PM") ?: "12:00 PM"
+
+        Log.d("HomeActivity", "Reloaded resetTime: $resetTime")
+        startCountdownTimer(username)
+    }
+
 
     private fun updateStreakAndGems() {
         // Retrieve username from Intent
