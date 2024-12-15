@@ -17,6 +17,7 @@ class PreferencesActivity : AppCompatActivity() {
     private lateinit var notificationSwitch: SwitchCompat
     private lateinit var resetTimeText: TextView
     private lateinit var notifEnabledText: TextView
+    private lateinit var tvUsername: TextView
     private lateinit var editTimeButton: ImageButton
     private lateinit var notificationHelper: NotificationHelper
     private lateinit var username: String
@@ -29,8 +30,11 @@ class PreferencesActivity : AppCompatActivity() {
         notifEnabledText = findViewById(R.id.tvNotiStatus)
         resetTimeText = findViewById(R.id.tvQuizResetTime)
         editTimeButton = findViewById(R.id.btnEditTime)
+        tvUsername = findViewById(R.id.tvEditUsername)
 
         username = intent.getStringExtra("username") ?: return
+        tvUsername.text = username
+
 
         notificationHelper = NotificationHelper(this)
 
