@@ -16,7 +16,6 @@ import java.io.File
 
 class CreateTriviaActivity : AppCompatActivity() {
 
-    private lateinit var toolbar: androidx.appcompat.widget.Toolbar
     private lateinit var editTxtTriviaName: EditText
     private lateinit var editTxtQuestionTitle: EditText
     private lateinit var rdoGrpQuestionType: RadioGroup
@@ -45,7 +44,16 @@ class CreateTriviaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_trivia)
 
-        toolbar = findViewById(R.id.toolbar_create)
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+
         editTxtTriviaName = findViewById(R.id.editTxtTriviaName)
         editTxtQuestionTitle = findViewById(R.id.editTxtQuestionTitle)
         rdoGrpQuestionType = findViewById(R.id.rdoGrpQuestionType)

@@ -23,6 +23,16 @@ class CollectionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.acitvity_collection)
 
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+
         username = intent.getStringExtra("username") ?: ""
 
         txtGems = findViewById(R.id.tvGems)

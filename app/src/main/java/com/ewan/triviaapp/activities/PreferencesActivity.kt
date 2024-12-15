@@ -30,6 +30,16 @@ class PreferencesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_preferences)
 
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+
         notificationSwitch = findViewById(R.id.switchPushNotifications)
         notifEnabledText = findViewById(R.id.tvNotiStatus)
         resetTimeText = findViewById(R.id.tvQuizResetTime)

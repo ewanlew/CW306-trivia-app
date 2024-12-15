@@ -45,6 +45,16 @@ class CustomTriviaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_custom_trivia)
 
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+
         txtQuestion = findViewById(R.id.txtQuestion)
         txtQuestionNo = findViewById(R.id.txtQuestionNo)
         linLayAnswers = findViewById(R.id.linLayAnswers)
