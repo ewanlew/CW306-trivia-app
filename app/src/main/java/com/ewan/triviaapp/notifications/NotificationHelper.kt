@@ -1,5 +1,6 @@
 package com.ewan.triviaapp.notifications
 
+import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.Notification
 import android.app.NotificationChannel
@@ -50,6 +51,7 @@ class NotificationHelper(base: Context) : ContextWrapper(base) {
             .setAutoCancel(true)
     }
 
+    @SuppressLint("ScheduleExactAlarm")
     fun scheduleNotification(context: Context, title: String, body: String, triggerAtMillis: Long) {
         val intent = Intent(context, NotificationReceiver::class.java).apply {
             putExtra("title", title)

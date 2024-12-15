@@ -63,11 +63,11 @@ class PreferencesActivity : AppCompatActivity() {
 
         if (isEnabled) {
             scheduleNotification()
-            Toast.makeText(this, "Push notifications enabled", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Push notifications enabled. Please ensure the app has permission.", Toast.LENGTH_SHORT).show()
             notifEnabledText.text = getString(R.string.enabledText)
         } else {
             cancelNotifications()
-            Toast.makeText(this, "Push notifications disabled", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Push notifications disabled.", Toast.LENGTH_SHORT).show()
             notifEnabledText.text = getString(R.string.disabledText)
         }
     }

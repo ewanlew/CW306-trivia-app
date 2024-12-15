@@ -1,5 +1,6 @@
 package com.ewan.triviaapp.activities
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -129,6 +130,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
+    @SuppressLint("DefaultLocale")
     private fun updateCountdownDisplay(timeRemaining: Long) {
         val hours = TimeUnit.MILLISECONDS.toHours(timeRemaining)
         val minutes = TimeUnit.MILLISECONDS.toMinutes(timeRemaining) % 60
@@ -139,6 +141,7 @@ class HomeActivity : AppCompatActivity() {
         txtSecVal.text = String.format("%02d", seconds)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun resetCountdown() {
         txtHourVal.text = "00"
         txtMinVal.text = "00"
