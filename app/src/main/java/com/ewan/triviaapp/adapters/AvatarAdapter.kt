@@ -16,7 +16,8 @@ import com.ewan.triviaapp.models.Avatar
 class AvatarAdapter(
     private val avatars: List<Avatar>,
     private val context: Context,
-    private val username: String
+    private val username: String,
+    private val tvGems: TextView
 ) : RecyclerView.Adapter<AvatarAdapter.AvatarViewHolder>() {
 
     private val sharedPref: SharedPreferences =
@@ -135,6 +136,8 @@ class AvatarAdapter(
         val editor = sharedPref.edit()
         editor.putInt("$username:currentGems", newGems)
         editor.apply()
+
+        tvGems.text = context.getString(R.string.gemsShowcase, newGems)
     }
 
     private fun setCurrentAvatar(avatarResId: Int) {
