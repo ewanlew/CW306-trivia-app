@@ -126,6 +126,8 @@
     <string name="avi_sour">Sour</string>
     <string name="avi_spooky">Spooky</string>
     <string name="avi_turnt">Turnt</string>
+    <string name="avi_sleepy">Sleepy</string>
+    <string name="avi_man">Man</string>
 
     <string name="themes">Themes</string>
     <string name="pets">Pets</string>
