@@ -202,4 +202,15 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra("avatarResId", userProfile.avatarResId)
         startActivity(intent)
     }
+
+    override fun onResume() {
+        super.onResume()
+        refreshUsers()
+    }
+
+    private fun refreshUsers() {
+        userList.clear()
+        loadUsers()
+        userAdapter.notifyDataSetChanged()
+    }
 }
