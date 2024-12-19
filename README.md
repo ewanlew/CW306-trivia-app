@@ -56,6 +56,6 @@
 		 - [(Image Preview)](https://github.com/user-attachments/assets/58185e42-3f19-4273-8f35-44c5c5b44a21) [(Image Preview 2)](https://github.com/user-attachments/assets/eb3c44ea-9e77-45a5-8c5c-e58629da9e20)
 
 ## Libraries Used
-- [Retrofit]([https://kotlinlang.org/](https://github.com/square/retrofit)) (v2.11.0) is a type-safe HTTP client for Android and JAVA.
+- [Retrofit](https://github.com/square/retrofit) (v2.11.0) is a type-safe HTTP client for Android and JAVA.
 - [KonfettiXML](https://github.com/DanielMartinus/Konfetti) (v2.1.0) is a Kotlin library that produces a confetti effect whenever the user answers a Trivia question correctly.
 - [GSon](https://github.com/google/gson) (v2.11.0) to convert the HTTP request into a JSON representation.
