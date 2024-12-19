@@ -50,7 +50,7 @@
  - **Collection**
    - [(Image Preview)](https://github.com/user-attachments/assets/f848f5dd-25db-43b2-93f8-1b54e7b42937)
 	 - The main view where unlockables are purchased with💎 Gems.
-		 - Hardcore mode costs 1000 💎 Gems
+		 - Hardcore mode costs 💎 1000 Gems
 		 - User avatars cost 💎 200 Gems
 	 - 9 unlockable avatars
 		 - [(Image Preview)](https://github.com/user-attachments/assets/58185e42-3f19-4273-8f35-44c5c5b44a21) [(Image Preview 2)](https://github.com/user-attachments/assets/eb3c44ea-9e77-45a5-8c5c-e58629da9e20)
